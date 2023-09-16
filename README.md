@@ -1,8 +1,8 @@
-# `Book Jersey`
+# `Book NJ`
 
 ## Database Schema Design
 
-![Database Schema](schema.png)
+![db-schema](./images/schema.png)
 
 ## API Documentation
 
