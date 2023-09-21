@@ -1,7 +1,7 @@
 const router = require('express').Router();
+const { restoreUser} = require('../../utils/auth');
 
-router.post('/test', (req, res) => {
-    res.json({ requestBody: req.body });
-});
+router.use(restoreUser);
+
 
 module.exports = router;

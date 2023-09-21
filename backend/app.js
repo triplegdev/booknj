@@ -12,12 +12,17 @@ const { ValidationError } = require('sequelize');
 
 const app = express();
 
+//logging for development helping with debugging
 app.use(morgan('dev'));
+//parses cookies accessed via req.cookies
 app.use(cookieParser());
 app.use(express.json());
+
 if (!isProduction) {
     app.use(cors());
+    //allows resources to be fetched cross-origin but restricts access to same-origin
     app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin"}));
+    //csurf creates a token to be applied to every request
     app.use(csurf({
         cookie: {
             secure: isProduction,
