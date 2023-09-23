@@ -20,17 +20,18 @@ app.use(express.json());
 
 if (!isProduction) {
     app.use(cors());
-    //allows resources to be fetched cross-origin but restricts access to same-origin
-    app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin"}));
-    //csurf creates a token to be applied to every request
-    app.use(csurf({
-        cookie: {
-            secure: isProduction,
-            sameSite: isProduction && "Lax",
-            httpOnly: true
-        }
-    }));
 }
+
+//allows resources to be fetched cross-origin but restricts access to same-origin
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin"}));
+//csurf creates a token to be applied to every request
+app.use(csurf({
+    cookie: {
+        secure: isProduction,
+        sameSite: isProduction && "Lax",
+        httpOnly: true
+    }
+}));
 
 const routes = require('./routes');
 app.use(routes);
