@@ -15,7 +15,7 @@ const reviews = [
   { userId: 2, spotId: 5, review: "Average at best.", stars: 3 },
   { userId: 3, spotId: 6, review: "Lovely place for a getaway.", stars: 4 },
   { userId: 3, spotId: 1, review: "Terrible service, avoid this place.", stars: 1 },
-  { userId: 1, spotId: 2, review: "Decent spot, had a good time.", stars: 3 }
+  { userId: 3, spotId: 2, review: "Decent spot, had a good time.", stars: 3 }
 ];
 
 
