@@ -3,6 +3,8 @@ const express = require('express');
 const { Op, fn, col } = require('sequelize');
 const { Spot, User, Review, Booking, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
 
@@ -195,9 +197,95 @@ router.get('/:spotId', async (req, res) => {
 
 });
 
-router.get('/', async (req, res) => {
-    // const spots = await Spot.findAll();
+const convertQueryParams = (req, _res, next) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+    req.query.page = parseInt(page)
+    req.query.size = parseInt(size);
+    req.query.minLat = parseFloat(minLat);
+    req.query.maxLat = parseFloat(maxLat);
+    req.query.minLng = parseFloat(minLng);
+    req.query.maxLng = parseFloat(maxLng);
+    req.query.minPrice = parseFloat(minPrice);
+    req.query.maxPrice = parseFloat(maxPrice);
+
+    next();
+};
+
+const queryValidators = [
+    convertQueryParams,
+    check('page')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isInt({ min: 1 })
+        .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isInt({ min: 1 })
+        .withMessage('Size must be greater than or equal to 1'),
+    check('maxLat')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('Maximum latitude is invalid'),
+    check('minLat')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('Minimum latitude is invalid'),
+    check('maxLng')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('Maximum longitude is invalid'),
+    check('minLng')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('Minimum longitude is invalid'),
+    check('minPrice')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: 0 })
+        .withMessage('Minimum price must be greater than or equal to 0'),
+    check('maxPrice')
+        .optional({
+            nullable: true,
+            checkFalsy: true,
+          })
+        .isFloat({ min: 0 })
+        .withMessage('Maximum price must be greater than or equal to 0'),
+    handleValidationErrors
+];
+
+router.get('/', queryValidators, async (req, res) => {
+    let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+
+    if (!page || page > 10) page = 1;
+    if (!size || size > 20) size = 20;
+
+    const where = {};
+    if (minLat && maxLat) where.lat = { [Op.gt]: minLat, [Op.lt]: maxLat };
+    if (minLng && maxLng) where.lng = { [Op.gt]: minLng, [Op.lt]: maxLng };
+    if (minPrice && minPrice) where.price = { [Op.gt]: minPrice, [Op.lt]: maxPrice };
+
+
     const spots = await Spot.findAll({
+        where,
         include: [
             {
                 model: Review,
@@ -205,17 +293,21 @@ router.get('/', async (req, res) => {
             },
             {
                 model: Image,
-                attributes: ['url', 'preview']
+                attributes: ['url', 'preview'],
+                as: 'SpotImages'
             }
         ],
-        group: ['Spot.id']
+        group: ['Spot.id'],
+        limit: size,
+        offset: size * (page - 1),
+        subQuery: false
     });
 
     const addAvgRating = spots.map(spot => {
-        const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, Images } = spot;
+        const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
         const avgRating = Reviews[0].dataValues.avgRating;
-        const preview = Images.find(image => image.dataValues.preview === true);
+        const preview = SpotImages.find(image => image.dataValues.preview === true);
         let previewImage;
 
         if (preview) previewImage = { previewImage: preview.dataValues.url };
@@ -240,7 +332,7 @@ router.get('/', async (req, res) => {
         };
     });
 
-    return res.json( { Spots: addAvgRating });
+    return res.json( { Spots: addAvgRating, page, size });
 });
 
 module.exports = router;
