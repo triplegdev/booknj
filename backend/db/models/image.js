@@ -3,46 +3,52 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Review extends Model {
+  class Image extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    getImageable(options) {
+      if (!this.imageableType) return Promise.resolve(null);
+      const mixinMethodName = `get${this.imageableType}`;
+      return this[mixinMethodName](options);
+    }
+
     static associate(models) {
       // define association here
-      Review.belongsTo(models.User, { foreignKey: 'userId'});
-      Review.belongsTo(models.Spot, { foreignKey: 'spotId'});
-      Review.hasMany(models.Image, {
+      Image.belongsTo(models.Spot, {
         foreignKey: 'imageableId',
         constraints: false,
-        scope: {
-          imageableType: 'Review'
-        },
+        as: 'SpotImages'
+      });
+      Image.belongsTo(models.Review, {
+        foreignKey: 'imageableId',
+        constraints: false,
         as: 'ReviewImages'
       });
     }
   }
-  Review.init({
-    userId: {
+  Image.init({
+    imageableId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },
-    spotId: {
-      type: DataTypes.INTEGER,
+    imageableType: {
+      type: DataTypes.ENUM(['Spot', 'Review']),
       allowNull: false
     },
-    review: {
-      type: DataTypes.TEXT,
+    url: {
+      type: DataTypes.STRING,
       allowNull: false
     },
-    stars: {
-      type: DataTypes.INTEGER,
+    preview: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {
     sequelize,
-    modelName: 'Review',
+    modelName: 'Image',
   });
-  return Review;
+  return Image;
 };
