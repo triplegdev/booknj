@@ -61,8 +61,23 @@ router.get('/:spotId/reviews', async (req, res) => {
         where: {
             spotId
         },
-        include: { model: User, attributes: ['id','firstName','lastName'] }
+        include: [
+            {
+                model: User,
+                attributes: ['id','firstName','lastName']
+            },
+            {
+                model: Image,
+                attributes: ['id', 'url'],
+                as: 'ReviewImages'
+            },
+        ]
     });
+
+    if (!reviews.length) {
+        res.status(404);
+        return res.json({ message: "Spot couldn't be found" });
+    }
 
     return res.json({ Reviews: reviews })
 });
