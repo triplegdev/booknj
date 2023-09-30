@@ -84,7 +84,7 @@ router.get('/:spotId/reviews', async (req, res) => {
     return res.json({ Reviews: reviews })
 });
 
-router.get('/current', requireAuth, async (req, res) => {
+router.get('/current', requireAuth, async (req, res, next) => {
     const { user } = req;
 
     const spots = await Spot.findAll({
@@ -98,17 +98,18 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: Image,
-                attributes: ['url', 'preview']
+                attributes: ['url', 'preview'],
+                as: 'SpotImages'
             }
         ]
 
     });
 
     const addAvgRating = spots.map(spot => {
-        const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, Images } = spot;
+        const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
         const avgRating = Reviews[0].dataValues.avgRating;
-        const preview = Images.find(image => image.dataValues.preview === true);
+        const preview = SpotImages.find(image => image.dataValues.preview === true);
         let previewImage;
 
         if (preview) previewImage = { previewImage: preview.dataValues.url };
