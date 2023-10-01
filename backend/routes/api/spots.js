@@ -39,6 +39,30 @@ const validateSpot = [
     handleValidationErrors
 ];
 
+router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const { url, preview } = req.body;
+    const { spotId } = req.params;
+    const imageableId = spotId;
+    const imageableType = 'Spot';
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        res.status(404);
+        return res.json({ message: "Spot couldn't be found" });
+    }
+
+    const image = await Image.create({ imageableId, imageableType, url, preview });
+
+    const safeImage = {
+        id: image.id,
+        url: image.url,
+        preview: image.preview
+    };
+
+    return res.json( safeImage );
+});
+
 router.get('/:spotId/bookings', requireAuth, async (req, res) => {
     const { spotId } = req.params;
     const { user } = req;
@@ -340,7 +364,10 @@ router.get('/', queryValidators, async (req, res) => {
     const addAvgRating = spots.map(spot => {
         const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
-        const avgRating = Reviews[0].dataValues.avgRating;
+        let avgRating;
+        if (Reviews[0]) {
+            avgRating = Reviews[0].dataValues.avgRating;
+        }
         const preview = SpotImages.find(image => image.dataValues.preview === true);
         let previewImage;
 
