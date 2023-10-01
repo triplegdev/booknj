@@ -40,6 +40,7 @@ const validateSpot = [
 ];
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
+    const { user } = req;
     const { url, preview } = req.body;
     const { spotId } = req.params;
     const imageableId = spotId;
@@ -50,6 +51,11 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
     if (!spot) {
         res.status(404);
         return res.json({ message: "Spot couldn't be found" });
+    }
+
+    if (spot.ownerId !== user.id) {
+        res.status(403);
+        return res.json({ message: "Forbidden" });
     }
 
     const image = await Image.create({ imageableId, imageableType, url, preview });
