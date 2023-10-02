@@ -181,7 +181,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                     }
                 },
                 {
-                  //booking range is withing
+                  //booking range is within
                   startDate: { [Op.lte]: startDate },
                   endDate: { [Op.gte]: endDate },
                 },
@@ -384,6 +384,24 @@ router.get('/:spotId', async (req, res) => {
     return res.json( { Spots: reformattedSpots });
 
 });
+
+
+router.delete('/:spotId', requireAuth, async (req, res) => {
+    const { spotId } = req.params;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        res.status(404);
+        return res.json({ message: "Spot couldn't be found" });
+    }
+
+    await spot.destroy();
+
+    res.json({ message: "Successfully deleted" });
+
+});
+
 
 const convertQueryParams = (req, _res, next) => {
     let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
