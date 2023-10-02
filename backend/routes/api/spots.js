@@ -158,10 +158,15 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
 
     const spot = await Spot.findByPk(spotId);
 
+    if (spot.ownerId === user.id) {
+        res.status(403);
+        return res.json({ message: "Forbidden" });
+    }
+
 
     const conflictBooking = await Booking.findOne({
         where: {
-            // spotId,
+            spotId,
             [Op.or]: [
                 {
                     [Op.or]: {
@@ -174,8 +179,6 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
                             [Op.and]: [{[Op.gte]: startDate}, {[Op.lte]: endDate}],
                           },
                     }
-
-
                 },
                 {
                   //booking range is withing
