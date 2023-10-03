@@ -47,6 +47,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
+    const { user } = req;
     const { reviewId } = req.params;
 
     const review = await Review.findByPk(reviewId);
@@ -54,6 +55,10 @@ router.delete('/:reviewId', requireAuth, async (req, res) => {
     if (!review) {
         res.status(404);
         return res.json({ message: "Review couldn't be found" });
+    }
+
+    if (review.userId !== user.id) {
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     await review.destroy();

@@ -150,7 +150,6 @@ const validateBooking = [
 ];
 
 router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, next) => {
-    console.log(check('startDate').selectFields('startDate'));
     const { user } = req;
     const userId = user.id;
     const { startDate, endDate } = req.body;
@@ -158,6 +157,7 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
 
     const spot = await Spot.findByPk(spotId);
 
+    //owner cannot post a booking on it's on spot
     if (spot.ownerId === user.id) {
         res.status(403);
         return res.json({ message: "Forbidden" });
@@ -390,6 +390,7 @@ router.get('/:spotId', async (req, res) => {
 
 
 router.delete('/:spotId', requireAuth, async (req, res) => {
+    const { user } = req;
     const { spotId } = req.params;
 
     const spot = await Spot.findByPk(spotId);
@@ -397,6 +398,10 @@ router.delete('/:spotId', requireAuth, async (req, res) => {
     if (!spot) {
         res.status(404);
         return res.json({ message: "Spot couldn't be found" });
+    }
+
+    if (spot.ownerId !== user.id) {
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     await spot.destroy();

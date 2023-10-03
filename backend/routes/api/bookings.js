@@ -39,13 +39,22 @@ router.get('/current', requireAuth, async (req, res) => {
 
 
 router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const { user } = req;
     const { bookingId } = req.params;
 
     const booking = await Booking.findByPk(bookingId);
 
+    const { spotId } = booking;
+    const spot = await Spot.findByPk(spotId);
+
+
     if (!booking) {
         res.status(404);
         return res.json({ message: "Booking couldn't be found" });
+    }
+
+    if (booking.userId !== user.id && spot.ownerId !== user.id) {
+        return res.status(403).json({ message: 'Forbidden' });
     }
 
     const currentTime = new Date();
