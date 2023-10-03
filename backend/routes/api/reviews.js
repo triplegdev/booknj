@@ -2,8 +2,20 @@ const express = require('express');
 const { Op } = require('sequelize');
 const { Review, User, Spot, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
+const { check } = require('express-validator');
+const { handleValidationErrors } = require('../../utils/validation');
 
 const router = express.Router();
+
+const validateReview = [
+    check('review')
+        .exists({ checkFalsy: true })
+        .withMessage('Review text is required'),
+    check('stars')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+];
 
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
     const { user } = req;
@@ -44,6 +56,34 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     return res.json( safeReview );
 });
+
+router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
+    const { user } = req;
+    const { reviewId } = req.params;
+    const { review, stars } = req.body;
+
+    const reviewToUpdate = await Review.findByPk(reviewId);
+
+    if (!reviewToUpdate) {
+        res.status(404);
+        return res.json({ message: "Review couldn't be found" });
+    }
+
+    if (reviewToUpdate.userId !== user.id) {
+        return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    const updates = {
+        review,
+        stars
+    }
+
+    await reviewToUpdate.update(updates);
+
+    return res.json( reviewToUpdate );
+
+});
+
 
 
 router.delete('/:reviewId', requireAuth, async (req, res) => {
