@@ -57,6 +57,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
     return res.json( safeReview );
 });
 
+
 router.put('/:reviewId', requireAuth, validateReview, async (req, res) => {
     const { user } = req;
     const { reviewId } = req.params;

@@ -199,7 +199,11 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
     if (conflictBooking) {
         const err = {};
         const errors = err.errors = {};
-        if (startDate >= conflictBooking.startDate && startDate <= conflictBooking.endDate) {
+        if (startDate >= conflictBooking.startDate && endDate <= conflictBooking.endDate) {
+            errors.startDate = "Start date conflicts with an existing booking";
+            errors.endDate = "End date conflicts with an existing booking";
+        }
+        else if (startDate >= conflictBooking.startDate && startDate <= conflictBooking.endDate) {
             errors.startDate = "Start date conflicts with an existing booking";
         }
         else if (endDate >= conflictBooking.startDate && endDate <= conflictBooking.endDate) {
