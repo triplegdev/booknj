@@ -23,10 +23,12 @@ const validateSpot = [
         .withMessage('Country is required'),
     check('lat')
         .exists({ checkFalsy: true })
-        .withMessage('Latitude is required'),
+        .isFloat({ min: -90, max: 90 })
+        .withMessage('Latitude is not valid'),
     check('lng')
         .exists({ checkFalsy: true })
-        .withMessage('Longitude is required'),
+        .isFloat({ min: -180, max: 180 })
+        .withMessage('Longitude is not valid'),
     check('name')
         .isLength({ max: 50 })
         .withMessage('Name must be less than 50 characters'),
@@ -385,6 +387,40 @@ router.get('/:spotId', async (req, res) => {
     };
 
     return res.json( { Spots: reformattedSpots });
+
+});
+
+router.put('/:spotId', requireAuth, validateSpot, async (req, res) => {
+    const { user } = req;
+    const { spotId } = req.params;
+    const { address, city, state, country, lat, lng, name, description, price } = req.body;
+
+    const spot = await Spot.findByPk(spotId);
+
+    if (!spot) {
+        res.status(404);
+        return res.json({ message: "Spot couldn't be found" });
+    }
+
+    if (spot.ownerId !== user.id) {
+        return res.status(403).json({ message: 'Forbidden' });
+    }
+
+    const updates = {
+        address,
+        city,
+        state,
+        country,
+        lat,
+        lng,
+        name,
+        description,
+        price
+    }
+
+    await spot.update(updates);
+
+    return res.json( spot );
 
 });
 
