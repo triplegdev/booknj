@@ -37,4 +37,27 @@ router.get('/current', requireAuth, async (req, res) => {
     return res.json( { Bookings: moveSpotUp });
 });
 
+
+router.delete('/:bookingId', requireAuth, async (req, res) => {
+    const { bookingId } = req.params;
+
+    const booking = await Booking.findByPk(bookingId);
+
+    if (!booking) {
+        res.status(404);
+        return res.json({ message: "Booking couldn't be found" });
+    }
+
+    const currentTime = new Date();
+
+    if (currentTime >= booking.startDate) {
+        return res.status(403).json({ message: "Bookings that have been started can't be deleted"});
+    }
+
+    await booking.destroy();
+
+    return res.json({ message: "Successfully deleted" });
+
+});
+
 module.exports = router;
