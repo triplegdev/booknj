@@ -37,6 +37,7 @@ const validateSpot = [
         .withMessage('Description is required'),
     check('price')
         .exists({ checkFalsy: true })
+        .isFloat({ min: 0})
         .withMessage('Price per day is required'),
     handleValidationErrors
 ];
@@ -53,10 +54,11 @@ const validateReview = [
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { user } = req;
-    const { url, preview } = req.body;
+    const { url } = req.body;
     const { spotId } = req.params;
     const imageableId = spotId;
     const imageableType = 'Spot';
+    const preview = true;
 
     const spot = await Spot.findByPk(spotId);
 
@@ -74,8 +76,7 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const safeImage = {
         id: image.id,
-        url: image.url,
-        preview: image.preview
+        url: image.url
     };
 
     return res.json( safeImage );
@@ -360,6 +361,7 @@ router.get('/:spotId', async (req, res) => {
 
     });
 
+    //Eager loaded queries send back a Spot object with null values so you have to check values.
     if (!spot.dataValues.id) {
         res.status(404);
         return res.json({ message: "Spot couldn't be found" });
@@ -368,8 +370,12 @@ router.get('/:spotId', async (req, res) => {
 
     const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages, Owner } = spot;
 
-    const avgStarRating = Reviews[0].dataValues.avgStarRating;
-    const numReviews = Reviews[0].dataValues.numReviews;
+    let avgStarRating;
+    let numReviews;
+    if (Reviews.length) {
+        avgStarRating = Reviews[0].dataValues.avgStarRating;
+        numReviews = Reviews[0].dataValues.numReviews;
+    }
 
     const reformattedSpots = {
         id,
