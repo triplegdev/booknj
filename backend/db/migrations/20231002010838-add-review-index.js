@@ -14,7 +14,8 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.addIndex('Reviews', ["userId", "spotId"], { unique: true, ...options });
+    options.tableName = 'Reviews';
+    await queryInterface.addIndex(options, ["userId", "spotId"], { unique: true });
   },
 
   async down (queryInterface, Sequelize) {
