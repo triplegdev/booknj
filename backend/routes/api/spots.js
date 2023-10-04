@@ -54,11 +54,10 @@ const validateReview = [
 
 router.post('/:spotId/images', requireAuth, async (req, res) => {
     const { user } = req;
-    const { url } = req.body;
+    const { url, preview } = req.body;
     const { spotId } = req.params;
     const imageableId = spotId;
     const imageableType = 'Spot';
-    const preview = true;
 
     const spot = await Spot.findByPk(spotId);
 
@@ -76,7 +75,8 @@ router.post('/:spotId/images', requireAuth, async (req, res) => {
 
     const safeImage = {
         id: image.id,
-        url: image.url
+        url: image.url,
+        preview: image.preview
     };
 
     return res.json( safeImage );

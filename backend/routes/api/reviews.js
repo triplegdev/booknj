@@ -19,10 +19,11 @@ const validateReview = [
 
 router.post('/:reviewId/images', requireAuth, async (req, res) => {
     const { user } = req;
-    const { url, preview } = req.body;
+    const { url } = req.body;
     const { reviewId } = req.params;
     const imageableId = reviewId;
     const imageableType = 'Review';
+    const preview = true;
 
     const review = await Review.findByPk(reviewId, {
         include: [{
@@ -50,8 +51,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
 
     const safeReview = {
         id: image.id,
-        url: image.url,
-        preview: image.preview
+        url: image.url
     };
 
     return res.json( safeReview );
