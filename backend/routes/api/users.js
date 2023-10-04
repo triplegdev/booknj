@@ -9,14 +9,20 @@ const { User } = require('../../db/models');
 const router = express.Router();
 
 const validateSignUp = [
+    check('firstName')
+        .exists({ checkFalsy: true })
+        .withMessage('First Name is required'),
+    check('lastName')
+        .exists({ checkFalsy: true })
+        .withMessage('Last Name is required'),
     check('email')
         .exists({ checkFalsy: true })
         .isEmail()
-        .withMessage('Please provide a valid email.'),
+        .withMessage('Invalid email'),
     check('username')
         .exists({ checkFalsy: true })
         .isLength({ min: 4 })
-        .withMessage('Please provide a username with at least 4 characters.'),
+        .withMessage('Username is required'),
     check('username')
         .not()
         .isEmail()
@@ -31,21 +37,29 @@ const validateSignUp = [
 router.post('/', validateSignUp, async (req, res, next) => {
     const { firstName, lastName, email, password, username } = req.body;
     const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({ firstName, lastName, email, username, hashedPassword });
+    try {
+        const user = await User.create({ firstName, lastName, email, username, hashedPassword });
 
-    const safeUser = {
-        id: user.id,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        userName: user.username
-    };
+        const safeUser = {
+            id: user.id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            userName: user.username
+        };
 
-    await setTokenCookie(res, safeUser);
+        await setTokenCookie(res, safeUser);
 
-    return res.json({
-        user: safeUser
-    });
+        return res.json({
+            user: safeUser
+        });
+
+    } catch (err) {
+        err.message = 'User already exists';
+        if (err.errors[0].path === 'username') err.errors[0].message = 'User with that username already exists';
+        if (err.errors[0].path === 'email') err.errors[0].message = 'User with that email already exists';
+        return next(err);
+    }
 });
 
 module.exports = router;

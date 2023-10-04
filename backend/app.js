@@ -51,7 +51,7 @@ app.use((err, _req, _res, next) => {
             errors[error.path] = error.message;
         }
         err.title = 'Validation error';
-        err.errors = erros;
+        err.errors = errors;
     }
     next(err);
 });
