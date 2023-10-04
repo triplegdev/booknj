@@ -299,12 +299,13 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     });
 
-    if (!spots[0].dataValues.id) return res.json( { Spots: [] } );
+    if (!spots.length) return res.json( { Spots: [] } );
 
     const addAvgRating = spots.map(spot => {
         const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
-        const avgRating = Reviews[0].dataValues.avgRating;
+        let avgRating;
+        if (Reviews.length) avgRating = Reviews[0].dataValues.avgRating;
         const preview = SpotImages.find(image => image.dataValues.preview === true);
         let previewImage;
 

@@ -50,7 +50,8 @@ router.post('/', validateSignUp, async (req, res, next) => {
 
     } catch (err) {
         err.message = 'User already exists';
-        err.errors[0].message = 'User with that email already exists';
+        if (err.errors[0].path === 'username') err.errors[0].message = 'User with that username already exists';
+        if (err.errors[0].path === 'email') err.errors[0].message = 'User with that email already exists';
         return next(err);
     }
 });
