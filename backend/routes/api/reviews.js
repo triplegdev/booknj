@@ -42,7 +42,7 @@ router.post('/:reviewId/images', requireAuth, async (req, res) => {
         return res.json({ message: "Forbidden" });
     }
 
-    if (review.ReviewImages.length > 10) {
+    if (review.ReviewImages.length >= 10) {
         res.status(403);
         return res.json({ message: "Maximum number of images for this resource was reached" });
     }

@@ -160,6 +160,11 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
 
     const spot = await Spot.findByPk(spotId);
 
+    if (!spot) {
+        res.status(404);
+        return res.json({ message: "Spot couldn't be found" });
+    }
+
     //owner cannot post a booking on it's on spot
     if (spot.ownerId === user.id) {
         res.status(403);
@@ -191,11 +196,6 @@ router.post('/:spotId/bookings', requireAuth, validateBooking, async (req, res, 
             ],
         }
     });
-
-    if (!spot) {
-        res.status(404);
-        return res.json({ message: "Spot couldn't be found" });
-    }
 
     if (conflictBooking) {
         const err = {};
@@ -300,7 +300,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
 
     });
 
-    if (!spots.length) return res.json( { Spots: [] } );
+    if (!spots[0].dataValues.id) return res.json( { Spots: [] } );
 
     const addAvgRating = spots.map(spot => {
         const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
