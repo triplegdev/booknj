@@ -592,7 +592,7 @@ router.get('/', queryValidators, async (req, res) => {
             {
                 model: Review,
                 attributes: [ [fn('AVG', col('stars')), 'avgRating'] ],
-                group: ['Reviews.id']
+                group: ['Review.id']
             },
             {
                 model: Image,
