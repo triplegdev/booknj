@@ -599,7 +599,7 @@ router.get('/', queryValidators, async (req, res) => {
                 as: 'SpotImages'
             }
         ],
-        group: ['Spot.id', 'Reviews.id'],
+        group: ['Spot.id', 'Reviews.id', 'SpotImages.id'],
         limit: size,
         offset: size * (page - 1),
         subQuery: false
