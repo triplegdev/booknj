@@ -113,7 +113,7 @@ router.get('/:spotId/bookings', requireAuth, async (req, res, next) => {
         const filteredBookings = bookings.map(booking => {
             const { id, spotId, userId, startDate, endDate, createdAt, updatedAt, User } = booking;
             return {
-              User: User.toJSON(),
+              User,
               id,
               spotId,
               userId,

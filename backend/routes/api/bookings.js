@@ -48,7 +48,7 @@ router.get('/current', requireAuth, async (req, res) => {
         return {
           id,
           spotId,
-          Spot: Spot.toJSON(),
+          Spot,
           userId,
           startDate,
           endDate,
