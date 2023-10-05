@@ -325,7 +325,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     });
     console.log(spots);
 
-    if (!spots[0].dataValues.id) return res.json( { Spots: [] } );
+    if (!spots) return res.json( { Spots: [] } );
 
     const addAvgRating = spots.map(spot => {
         let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
