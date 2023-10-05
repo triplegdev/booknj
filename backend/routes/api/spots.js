@@ -331,12 +331,16 @@ router.get('/current', requireAuth, async (req, res, next) => {
         const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
         let avgRating;
-        if (Reviews.length) avgRating = Reviews[0].dataValues.avgRating;
+        if (Reviews.length) avgRating = parseFloat(Reviews[0].dataValues.avgRating);
         const preview = SpotImages.find(image => image.dataValues.preview === true);
         let previewImage;
 
         if (preview) previewImage = { previewImage: preview.dataValues.url };
         else previewImage = {};
+
+        lat = parseFloat(lat);
+        lng = parseFloat(lng);
+        price = parseFloat(price);
 
         return {
           id,
@@ -612,7 +616,7 @@ router.get('/', queryValidators, async (req, res) => {
         let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
         let avgRating;
-        if (Reviews[0]) {
+        if (Reviews.length) {
             avgRating = parseFloat(Reviews[0].dataValues.avgRating);
         }
         const preview = SpotImages.find(image => image.dataValues.preview === true);
