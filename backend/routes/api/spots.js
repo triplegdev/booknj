@@ -591,8 +591,7 @@ router.get('/', queryValidators, async (req, res) => {
         include: [
             {
                 model: Review,
-                attributes: [ [fn('AVG', col('stars')), 'avgRating'] ],
-                group: ['Review.id']
+                attributes: [ [fn('AVG', col('stars')), 'avgRating'] ]
             },
             {
                 model: Image,
@@ -600,7 +599,7 @@ router.get('/', queryValidators, async (req, res) => {
                 as: 'SpotImages'
             }
         ],
-        group: ['Spot.id'],
+        group: ['Spot.id', 'Reviews.id'],
         limit: size,
         offset: size * (page - 1),
         subQuery: false
