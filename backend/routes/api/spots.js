@@ -393,7 +393,7 @@ router.get('/:spotId', async (req, res, next) => {
     });
 
     //Eager loaded queries send back a Spot object with null values so you have to check values.
-    if (!spot.dataValues.id) {
+    if (!spot) {
         const err = new Error("Spot couldn't be found");
         err.status = 404;
         return next(err);
