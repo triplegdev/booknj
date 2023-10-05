@@ -626,7 +626,7 @@ router.get('/', queryValidators, async (req, res) => {
             [fn('AVG', col('Reviews.stars')), 'avgRating'],
             [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
         ],
-        group: ['Spot.id'],
+        group: ['Spot.id', 'SpotImages.preview'],
         order: [['id']],
         limit: size,
         offset: size * (page - 1),
