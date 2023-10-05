@@ -328,7 +328,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
     if (!spots[0].dataValues.id) return res.json( { Spots: [] } );
 
     const addAvgRating = spots.map(spot => {
-        const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
+        let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
 
         let avgRating;
         if (Reviews.length) avgRating = parseFloat(Reviews[0].dataValues.avgRating);
@@ -387,7 +387,8 @@ router.get('/:spotId', async (req, res, next) => {
                 attributes: ['id', 'firstName', 'lastName'],
                 as: 'Owner'
             },
-        ]
+        ],
+        group: ['Spot.id', 'Reviews.id', 'SpotImages.id', 'Owner.id']
 
     });
 
@@ -401,14 +402,18 @@ router.get('/:spotId', async (req, res, next) => {
     }
 
 
-    const { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages, Owner } = spot;
+    let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages, Owner } = spot;
 
     let avgStarRating;
     let numReviews;
     if (Reviews.length) {
-        avgStarRating = Reviews[0].dataValues.avgStarRating;
-        numReviews = Reviews[0].dataValues.numReviews;
+        avgStarRating = parseFloat(Reviews[0].dataValues.avgStarRating);
+        numReviews = parseFloat(Reviews[0].dataValues.numReviews);
     }
+
+    lat = parseFloat(lat);
+    lng = parseFloat(lng);
+    price = parseFloat(price);
 
     const reformattedSpots = {
         id,
