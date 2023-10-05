@@ -319,9 +319,11 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 attributes: ['url', 'preview'],
                 as: 'SpotImages'
             }
-        ]
+        ],
+        group: ['Spot.id']
 
     });
+    console.log(spots);
 
     if (!spots[0].dataValues.id) return res.json( { Spots: [] } );
 
