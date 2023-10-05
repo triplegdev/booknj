@@ -1,6 +1,6 @@
 const express = require('express');
 // const sequelize = require('sequelize');
-const { Op, fn, col, literal } = require('sequelize');
+const { Op, fn, col, literal, cast } = require('sequelize');
 const { Spot, User, Review, Booking, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
@@ -616,17 +616,16 @@ router.get('/', queryValidators, async (req, res) => {
             'city',
             'state',
             'country',
-            'lat',
-            'lng',
+            [cast(col('lat'), 'FLOAT'), 'lat'],
+            [cast(col('lng'), 'FLOAT'), 'lng'],
             'name',
             'description',
-            'price',
+            [cast(col('price'), 'DECIMAL(10, 2)'), 'price'],
             'createdAt',
             'updatedAt',
-            [fn('AVG', col('Reviews.stars')), 'avgRating'],
+            [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
             [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
         ],
-        raw: true,
         group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
         order: [['id']],
         limit: size,
