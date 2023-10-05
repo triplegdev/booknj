@@ -385,7 +385,7 @@ router.get('/:spotId', async (req, res, next) => {
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
 
         ],
-        group: ['Spot.id']
+        group: ['Spot.id', 'SpotImages.id', 'Owner.id']
 
     });
 
