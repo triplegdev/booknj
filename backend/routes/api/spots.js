@@ -600,6 +600,7 @@ router.get('/', queryValidators, async (req, res) => {
             }
         ],
         group: ['Spot.id', 'Reviews.id', 'SpotImages.id'],
+        order: [['id']],
         limit: size,
         offset: size * (page - 1),
         subQuery: false
