@@ -312,55 +312,38 @@ router.get('/current', requireAuth, async (req, res, next) => {
         include: [
             {
                 model: Review,
-                attributes: [ [fn('AVG', col('stars')), 'avgRating'] ],
+                attributes: [],
             },
             {
                 model: Image,
-                attributes: ['url', 'preview'],
+                attributes: [],
                 as: 'SpotImages'
             }
         ],
-        group: ['Spot.id', 'Reviews.id', 'SpotImages.id']
+        attributes: [
+            'id',
+            'ownerId',
+            'address',
+            'city',
+            'state',
+            'country',
+            [cast(col('lat'), 'FLOAT'), 'lat'],
+            [cast(col('lng'), 'FLOAT'), 'lng'],
+            'name',
+            'description',
+            [cast(col('price'), 'DECIMAL(10, 2)'), 'price'],
+            'createdAt',
+            'updatedAt',
+            [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
+            [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
+        ],
+        group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
 
     });
 
     if (!spots) return res.json( { Spots: [] } );
 
-    const addAvgRating = spots.map(spot => {
-        let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
-
-        let avgRating;
-        if (Reviews.length) avgRating = parseFloat(Reviews[0].dataValues.avgRating);
-        const preview = SpotImages.find(image => image.dataValues.preview === true);
-        let previewImage;
-
-        if (preview) previewImage = { previewImage: preview.dataValues.url };
-        else previewImage = {};
-
-        lat = parseFloat(lat);
-        lng = parseFloat(lng);
-        price = parseFloat(price);
-
-        return {
-          id,
-          ownerId,
-          address,
-          city,
-          state,
-          country,
-          lat,
-          lng,
-          name,
-          description,
-          price,
-          createdAt,
-          updatedAt,
-          avgRating,
-          ...previewImage
-        };
-    });
-
-    return res.json( { Spots: addAvgRating });
+    return res.json({ Spots: spots });
 });
 
 
@@ -371,10 +354,7 @@ router.get('/:spotId', async (req, res, next) => {
         include: [
             {
                 model: Review,
-                attributes: [
-                    [fn('COUNT', col('Reviews.id')), 'numReviews'],
-                    [fn('AVG', col('stars')), 'avgStarRating'],
-                ],
+                attributes: [],
             },
             {
                 model: Image,
@@ -387,7 +367,25 @@ router.get('/:spotId', async (req, res, next) => {
                 as: 'Owner'
             },
         ],
-        group: ['Spot.id', 'Reviews.id', 'SpotImages.id', 'Owner.id']
+        attributes: [
+            'id',
+            'ownerId',
+            'address',
+            'city',
+            'state',
+            'country',
+            [cast(col('lat'), 'FLOAT'), 'lat'],
+            [cast(col('lng'), 'FLOAT'), 'lng'],
+            'name',
+            'description',
+            [cast(col('price'), 'DECIMAL(10, 2)'), 'price'],
+            'createdAt',
+            'updatedAt',
+            [fn('COUNT', col('Reviews.id')), 'numReviews'],
+            [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
+
+        ],
+        group: ['Spot.id']
 
     });
 
@@ -400,41 +398,7 @@ router.get('/:spotId', async (req, res, next) => {
         // return res.json({ message: "Spot couldn't be found" });
     }
 
-
-    let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages, Owner } = spot;
-
-    let avgStarRating;
-    let numReviews;
-    if (Reviews.length) {
-        avgStarRating = parseFloat(Reviews[0].dataValues.avgStarRating);
-        numReviews = parseFloat(Reviews[0].dataValues.numReviews);
-    }
-
-    lat = parseFloat(lat);
-    lng = parseFloat(lng);
-    price = parseFloat(price);
-
-    const reformattedSpots = {
-        id,
-        ownerId,
-        address,
-        city,
-        state,
-        country,
-        lat,
-        lng,
-        name,
-        description,
-        price,
-        createdAt,
-        updatedAt,
-        numReviews,
-        avgStarRating,
-        SpotImages,
-        Owner
-    };
-
-    return res.json( { Spots: reformattedSpots });
+    return res.json(spot);
 
 });
 
