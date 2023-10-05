@@ -1,6 +1,6 @@
 const express = require('express');
 // const sequelize = require('sequelize');
-const { Op, fn, col } = require('sequelize');
+const { Op, fn, col, literal } = require('sequelize');
 const { Spot, User, Review, Booking, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
@@ -323,7 +323,6 @@ router.get('/current', requireAuth, async (req, res, next) => {
         group: ['Spot.id', 'Reviews.id', 'SpotImages.id']
 
     });
-    console.log(spots);
 
     if (!spots) return res.json( { Spots: [] } );
 
@@ -602,58 +601,39 @@ router.get('/', queryValidators, async (req, res) => {
         include: [
             {
                 model: Review,
-                attributes: [ [fn('AVG', col('stars')), 'avgRating'] ]
+                attributes: []
             },
             {
                 model: Image,
-                attributes: ['url', 'preview'],
+                attributes: [],
                 as: 'SpotImages'
             }
         ],
-        group: ['Spot.id', 'Reviews.id', 'SpotImages.id'],
+        attributes: [
+            'id',
+            'ownerId',
+            'address',
+            'city',
+            'state',
+            'country',
+            'lat',
+            'lng',
+            'name',
+            'description',
+            'price',
+            'createdAt',
+            'updatedAt',
+            [fn('AVG', col('Reviews.stars')), 'avgRating'],
+            [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
+        ],
+        group: ['Spot.id'],
         order: [['id']],
         limit: size,
         offset: size * (page - 1),
         subQuery: false
     });
 
-    const addAvgRating = spots.map(spot => {
-        let { id, ownerId, address, city, state, country, lat, lng, name, description, price, createdAt, updatedAt, Reviews, SpotImages } = spot;
-
-        let avgRating;
-        if (Reviews.length) {
-            avgRating = parseFloat(Reviews[0].dataValues.avgRating);
-        }
-        const preview = SpotImages.find(image => image.dataValues.preview === true);
-        let previewImage;
-
-        if (preview) previewImage = { previewImage: preview.dataValues.url };
-        else previewImage = {};
-
-        lat = parseFloat(lat);
-        lng = parseFloat(lng);
-        price = parseFloat(price);
-
-        return {
-          id,
-          ownerId,
-          address,
-          city,
-          state,
-          country,
-          lat,
-          lng,
-          name,
-          description,
-          price,
-          createdAt,
-          updatedAt,
-          avgRating,
-          ...previewImage
-        };
-    });
-
-    return res.json( { Spots: addAvgRating, page, size });
+    return res.json({ Spots: spots });
 });
 
 router.post('/', requireAuth, validateSpot, async (req, res) => {
