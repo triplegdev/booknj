@@ -320,7 +320,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
                 as: 'SpotImages'
             }
         ],
-        group: ['Spot.id']
+        group: ['Spot.id', 'Reviews.id', 'SpotImages.id']
 
     });
     console.log(spots);
