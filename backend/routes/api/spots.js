@@ -381,7 +381,7 @@ router.get('/:spotId', async (req, res, next) => {
             [cast(col('price'), 'DECIMAL(10, 2)'), 'price'],
             'createdAt',
             'updatedAt',
-            [fn('COUNT', col('Reviews.id')), 'numReviews'],
+            [cast(fn('COUNT', col('Reviews.id')), 'INTEGER'), 'numReviews'],
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
 
         ],
