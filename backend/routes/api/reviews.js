@@ -1,5 +1,5 @@
 const express = require('express');
-const { Op } = require('sequelize');
+const { Op, fn, col, literal, cast } = require('sequelize');
 const { Review, User, Spot, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const { check } = require('express-validator');
@@ -132,7 +132,7 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
 
 router.get('/current', requireAuth, async (req, res) => {
     const { user } = req;
-    console.log
+
     const reviews = await Review.findAll({
         where: {
             userId: user.id
@@ -144,17 +144,37 @@ router.get('/current', requireAuth, async (req, res) => {
             },
             {
                 model: Spot,
-                attributes: {exclude: ['createdAt', 'updatedAt']}
+                attributes: {exclude: ['createdAt', 'updatedAt']},
+                include: {
+                    model: Image,
+                    attributes: ['url','preview'],
+                    as: 'SpotImages'
+                },
             },
             {
                 model: Image,
                 attributes: ['id', 'url'],
                 as: 'ReviewImages'
-            },
+            }
         ]
     });
 
-    return res.json( { Reviews: reviews });
+
+    if (reviews.length) {
+        const addSpotPreview = reviews.map(review => {
+            const { Spot } = review;
+            const { SpotImages } = Spot;
+            const image = SpotImages.find(image => image.dataValues.preview === true);
+            Spot.dataValues.previewImage = image || null;
+            delete Spot.dataValues.SpotImages;
+            return review;
+        });
+
+        return res.json( { Reviews: addSpotPreview });
+
+    } else return res.json( { Reviews: reviews });
+
+
 });
 
 module.exports = router;

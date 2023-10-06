@@ -1,5 +1,4 @@
 const express = require('express');
-// const sequelize = require('sequelize');
 const { Op, fn, col, literal, cast } = require('sequelize');
 const { Spot, User, Review, Booking, Image } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
