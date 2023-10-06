@@ -165,7 +165,7 @@ router.get('/current', requireAuth, async (req, res) => {
             const { Spot } = review;
             const { SpotImages } = Spot;
             const image = SpotImages.find(image => image.dataValues.preview === true);
-            Spot.dataValues.previewImage = image || null;
+            image ? Spot.dataValues.previewImage = image.dataValues.url : Spot.dataValues.previewImage = null;
             delete Spot.dataValues.SpotImages;
             return review;
         });
