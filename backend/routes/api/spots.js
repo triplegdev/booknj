@@ -596,7 +596,7 @@ router.get('/', queryValidators, async (req, res) => {
         subQuery: false
     });
 
-    return res.json({ Spots: spots });
+    return res.json({ Spots: spots, page, size });
 });
 
 router.post('/', requireAuth, validateSpot, async (req, res) => {
