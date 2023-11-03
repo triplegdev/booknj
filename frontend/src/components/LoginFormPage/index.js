@@ -6,8 +6,8 @@ import { login } from '../../store/session';
 
 const LoginFormPage = () => {
     const history = useHistory();
-    const session = useSelector(state => state.user);
-    const [ credential, setCredential ] = useState('username');
+    const session = useSelector(state => state.session.user);
+    const [ credential, setCredential ] = useState('Demo-lition');
     const [ password, setPassword ] = useState('password');
     const [ errors, setErrors ] = useState({});
     const dispatch = useDispatch();
@@ -37,7 +37,6 @@ const LoginFormPage = () => {
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
-                    required
                     />
                 </label>
                 <div className="errors">{errors.password}</div>
@@ -47,7 +46,6 @@ const LoginFormPage = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    required
                     />
                 </label>
                 <button type="submit">Login</button>

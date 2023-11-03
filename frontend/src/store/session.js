@@ -36,11 +36,20 @@ export const logout = () => async dispatch => {
     const res = await csrfFetch('/api/session', options);
 
     if (res.ok) {
-        const user = await res.json();
-        dispatch(removeUser(user));
-        return user;
+        dispatch(removeUser());
     }
     return res;
+};
+
+export const restoreUser = () => async dispatch => {
+    const res = await csrfFetch('/api/session');
+
+    if (res.ok) {
+        const data = await res.json();
+        dispatch(setUser(data.user));
+        return data.user;
+    }
+    return res
 };
 
 const initialState = { user: null };
