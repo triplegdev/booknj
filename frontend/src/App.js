@@ -1,11 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
 import LoginFormPage from "./components/LoginFormPage";
 import SignUpFormPage from './components/SignUpFormPage';
+import Navigation from './components/Navigation';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { restoreUser } from './store/session';
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -16,15 +17,17 @@ function App() {
   }, [dispatch]);
 
   return (
-    isLoaded && (
-      <>
-        <h1>BookNJ</h1>
+    <>
+    <Navigation isLoaded={isLoaded}/>
+    {isLoaded && (
+      <div>
         <Switch>
           <Route path="/login" component={LoginFormPage} />
           <Route path="/signup" component={SignUpFormPage} />
         </Switch>
-      </>
-    )
+      </div>
+    )}
+    </>
   );
 }
 

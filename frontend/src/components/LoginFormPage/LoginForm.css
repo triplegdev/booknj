@@ -12,11 +12,9 @@ h1 {
     text-align: center;
 }
 
-form {
-    background-color: #F5F5DC;
-    border: none;
-    border-radius: 5px;
-    box-shadow: 1px 1px #d0bf82;
+.form {
+    border: 1px solid #aaa;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -33,25 +31,25 @@ label {
 }
 
 input {
-    border: 1px solid #ADD8E6;
-    border-radius: 2px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
     font-size: 16px;
     height: 30px;
     width: 100%;
     margin-top: 5px;
 }
 
-button {
-    background-color: #ADD8E6;
+.form__button {
+    background-color: #ff385c;
     border: none;
-    border-radius: 2px;
-    box-shadow: 1px 1px #65a9bf;
+    border-radius: 8px;
+    color: white;
     margin: 20px auto 10px auto;
-    padding: 5px 20px;
-    width: fit-content;
+    padding: 10px 20px;
+    width: 100%;
 }
 
-button:hover {
-    background-color: #c1e7f3;
+.form__button:hover {
+    background-color: #fb4969;
     cursor: pointer;
 }

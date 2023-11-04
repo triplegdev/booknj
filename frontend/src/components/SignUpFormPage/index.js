@@ -47,7 +47,7 @@ const SignUpFormPage = () => {
 
     return (
         <div className="signup">
-            <form onSubmit={handleSubmit}>
+            <form className="form" onSubmit={handleSubmit}>
                 <label>
                     Username
                     <input
@@ -102,7 +102,7 @@ const SignUpFormPage = () => {
                     />
                 </label>
                 {errors.confirmPassword && <div className="errors">{errors.confirmPassword}</div>}
-                <button type="submit">Sign Up</button>
+                <button className="form__button" type="submit">Sign Up</button>
             </form>
         </div>
 
