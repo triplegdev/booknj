@@ -12,6 +12,7 @@ const SignUpFormPage = () => {
     const [ lastName, setLastname ] = useState('lastname');
     const [ email, setEmail ] = useState('email');
     const [ password, setPassword ] = useState('password');
+    const [ confirmPassword, setConfirmPassword ] = useState('password');
     const [ errors, setErrors ] = useState({});
     const dispatch = useDispatch();
 
@@ -19,71 +20,88 @@ const SignUpFormPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
-        const payload = {
-            username,
-            firstName,
-            lastName,
-            email,
-            password
-        };
-        let user = await dispatch(signup(payload));
+        console.log(password, confirmPassword);
+        if (password === confirmPassword) {
+            setErrors({});
+            const payload = {
+                username,
+                firstName,
+                lastName,
+                email,
+                password
+            };
+            let user = await dispatch(signup(payload));
 
-        if (user.id) history.push('/');
-        else {
-            const { errors } = await user.json();
-            setErrors(errors);
+            if (user.id) history.push('/');
+            else {
+                const { errors } = await user.json();
+                console.log(errors)
+                setErrors(errors);
+            }
+        } else {
+            setErrors({
+                confirmPassword: "Confirm Password field must be the same as the Password field"
+            });
         }
     };
 
     return (
         <div className="signup">
             <form onSubmit={handleSubmit}>
-                {errors.username && <div className="errors">{errors.username}</div>}
                 <label>
-                    Username:
+                    Username
                     <input
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     />
                 </label>
-                {errors.firstName && <div className="errors">{errors.firstName}</div>}
+                {errors.username && <div className="errors">{errors.username}</div>}
                 <label>
-                    First Name:
+                    First Name
                     <input
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstname(e.target.value)}
                     />
                 </label>
-                {errors.lastName && <div className="errors">{errors.lastName}</div>}
+                {errors.firstName && <div className="errors">{errors.firstName}</div>}
                 <label>
-                    Last Name:
+                    Last Name
                     <input
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastname(e.target.value)}
                     />
                 </label>
-                {errors.email &&<div className="errors">{errors.email}</div>}
+                {errors.lastName && <div className="errors">{errors.lastName}</div>}
                 <label>
-                    Email:
+                    Email
                     <input
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     />
                 </label>
-                {errors.password && <div className="errors">{errors.password}</div>}
+                {errors.email &&<div className="errors">{errors.email}</div>}
                 <label>
-                    Password:
+                    Password
                     <input
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     />
                 </label>
+                {errors.password && <div className="errors">{errors.password}</div>}
+                <label>
+                    Confirm Password
+                    <input
+                    type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                </label>
+                {errors.confirmPassword && <div className="errors">{errors.confirmPassword}</div>}
                 <button type="submit">Sign Up</button>
             </form>
         </div>
