@@ -1,0 +1,6 @@
+@import '../LoginFormPage/LoginForm.css';
+
+.signup {
+    margin: 0 auto;
+    width: 300px;
+}

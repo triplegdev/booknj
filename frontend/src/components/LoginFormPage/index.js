@@ -30,7 +30,7 @@ const LoginFormPage = () => {
     return (
         <div className="login">
             <form onSubmit={handleSubmit}>
-                <div className="errors">{errors.credential}</div>
+                {errors.credential && <div className="errors">{errors.credential}</div>}
                 <label>
                     Username or Email:
                     <input
@@ -39,7 +39,7 @@ const LoginFormPage = () => {
                     onChange={(e) => setCredential(e.target.value)}
                     />
                 </label>
-                <div className="errors">{errors.password}</div>
+                {errors.password && <div className="errors">{errors.password}</div>}
                 <label>
                     Password:
                     <input
