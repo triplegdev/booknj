@@ -1,16 +1,21 @@
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
-import OpenModalButton from "../OpenModalButton";
+import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from "../LoginFormModal";
 import SignUpFormModal from "../SignUpFormModal";
 import Avatar from "./Avatar";
 import "./ProfileButton.css";
 
-const ProfileButton = ({ user, isLoaded }) => {
+const ProfileButton = ({ user }) => {
     const dispatch = useDispatch();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
+
+    const openMenu = () => {
+        if (showMenu) return;
+        setShowMenu(true);
+    };
 
     useEffect(() => {
         if (!showMenu) return;
@@ -26,14 +31,12 @@ const ProfileButton = ({ user, isLoaded }) => {
         return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
 
-    const openMenu = () => {
-        if (showMenu) return;
-        setShowMenu(true);
-      };
+    const closeMenu = () => setShowMenu(false);
 
     const logoutSession = (e) => {
         e.preventDefault();
         dispatch(logout());
+        closeMenu();
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -42,31 +45,26 @@ const ProfileButton = ({ user, isLoaded }) => {
         <div>
             <div className="profile__button-container">
                 <button className="profile__button" onClick={openMenu}>
-                    <div className="bars-container">
-                        <i className="fa-solid fa-bars"></i>
-                    </div>
+                    <i className="fa-solid fa-bars"></i>
                     <div className="avatar-container">
                         <Avatar />
                     </div>
 
                 </button>
             </div>
-            { isLoaded &&
             <ul className={ulClassName} ref={ulRef}>
                 { !user ?
                 <>
-                <li>
-                    <OpenModalButton
-                        buttonText="Log In"
-                        modalComponent={<LoginFormModal />}
-                    />
-                </li>
-                <li>
-                    <OpenModalButton
-                        buttonText="Sign Up"
-                        modalComponent={<SignUpFormModal />}
-                    />
-                </li>
+                <OpenModalMenuItem
+                    itemText="Log In"
+                    onItemClick={closeMenu}
+                    modalComponent={<LoginFormModal />}
+                />
+                <OpenModalMenuItem
+                    itemText="Sign Up"
+                    onItemClick={closeMenu}
+                    modalComponent={<SignUpFormModal />}
+                />
                 </>
                 :
                 <>
@@ -79,7 +77,6 @@ const ProfileButton = ({ user, isLoaded }) => {
                 </>
                 }
             </ul>
-            }
         </div>
     );
 };

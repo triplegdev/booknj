@@ -11,7 +11,7 @@ const Navigation = ({ isLoaded }) => {
             <NavLink exact to="/">
                 <Logo />
             </NavLink>
-            <ProfileButton user={user} isLoaded={isLoaded}/>
+            {isLoaded && <ProfileButton user={user} />}
         </nav>
     );
 };
