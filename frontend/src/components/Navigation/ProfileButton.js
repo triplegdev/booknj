@@ -1,8 +1,11 @@
-import "./ProfileButton.css";
-import { NavLink } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
+import OpenModalButton from "../OpenModalButton";
+import LoginFormModal from "../LoginFormModal";
+import SignUpFormModal from "../SignUpFormModal";
+import Avatar from "./Avatar";
+import "./ProfileButton.css";
 
 const ProfileButton = ({ user, isLoaded }) => {
     const dispatch = useDispatch();
@@ -39,8 +42,13 @@ const ProfileButton = ({ user, isLoaded }) => {
         <div>
             <div className="profile__button-container">
                 <button className="profile__button" onClick={openMenu}>
-                    <i className="fa-solid fa-bars"></i>
-                    <i className="fas fa-user-circle" />
+                    <div className="bars-container">
+                        <i className="fa-solid fa-bars"></i>
+                    </div>
+                    <div className="avatar-container">
+                        <Avatar />
+                    </div>
+
                 </button>
             </div>
             { isLoaded &&
@@ -48,10 +56,16 @@ const ProfileButton = ({ user, isLoaded }) => {
                 { !user ?
                 <>
                 <li>
-                    <NavLink to="/login">Login</NavLink>
+                    <OpenModalButton
+                        buttonText="Log In"
+                        modalComponent={<LoginFormModal />}
+                    />
                 </li>
                 <li>
-                    <NavLink to="/signup">Sign Up</NavLink>
+                    <OpenModalButton
+                        buttonText="Sign Up"
+                        modalComponent={<SignUpFormModal />}
+                    />
                 </li>
                 </>
                 :

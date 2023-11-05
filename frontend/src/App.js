@@ -1,6 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
-import LoginFormPage from "./components/LoginFormPage";
-import SignUpFormPage from './components/SignUpFormPage';
+import { Switch } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
@@ -19,14 +17,7 @@ const App = () => {
   return (
     <>
     <Navigation isLoaded={isLoaded}/>
-    {isLoaded && (
-      <div>
-        <Switch>
-          <Route path="/login" component={LoginFormPage} />
-          <Route path="/signup" component={SignUpFormPage} />
-        </Switch>
-      </div>
-    )}
+    {isLoaded && <Switch></Switch>}
     </>
   );
 }

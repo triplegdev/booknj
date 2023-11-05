@@ -19,6 +19,12 @@ Sandy beige: #F5F5DC
 Driftwood gray: #A9A9A9
 */
 
+body {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
 body,
 input,
 button {

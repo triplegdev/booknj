@@ -1,4 +1,8 @@
 .nav__header {
+    align-items: center;
+    border-bottom: 1px solid #ccc;
     display: flex;
+    height: 80px;
     justify-content: space-between;
+    padding: 0 80px;
 }
