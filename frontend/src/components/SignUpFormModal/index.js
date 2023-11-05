@@ -8,12 +8,12 @@ import "./SignUpForm.css";
 const SignUpFormModal = () => {
     const dispatch = useDispatch();
     const session = useSelector(state => state.session.user);
-    const [ username, setUsername ] = useState('username');
-    const [ firstName, setFirstname ] = useState('firstname');
-    const [ lastName, setLastname ] = useState('lastname');
-    const [ email, setEmail ] = useState('email');
-    const [ password, setPassword ] = useState('password');
-    const [ confirmPassword, setConfirmPassword ] = useState('password');
+    const [ username, setUsername ] = useState("");
+    const [ firstName, setFirstname ] = useState("");
+    const [ lastName, setLastname ] = useState("");
+    const [ email, setEmail ] = useState("");
+    const [ password, setPassword ] = useState("");
+    const [ confirmPassword, setConfirmPassword ] = useState("");
     const [ errors, setErrors ] = useState({});
     const { closeModal } = useModal();
 
@@ -56,6 +56,7 @@ const SignUpFormModal = () => {
                     type="text"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.username && <div className="errors">{errors.username}</div>}
@@ -65,6 +66,7 @@ const SignUpFormModal = () => {
                     type="text"
                     value={firstName}
                     onChange={(e) => setFirstname(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.firstName && <div className="errors">{errors.firstName}</div>}
@@ -74,6 +76,7 @@ const SignUpFormModal = () => {
                     type="text"
                     value={lastName}
                     onChange={(e) => setLastname(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.lastName && <div className="errors">{errors.lastName}</div>}
@@ -83,6 +86,7 @@ const SignUpFormModal = () => {
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.email &&<div className="errors">{errors.email}</div>}
@@ -92,6 +96,7 @@ const SignUpFormModal = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.password && <div className="errors">{errors.password}</div>}
@@ -101,6 +106,7 @@ const SignUpFormModal = () => {
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.confirmPassword && <div className="errors">{errors.confirmPassword}</div>}

@@ -8,8 +8,8 @@ import "./LoginForm.css";
 const LoginFormModal = () => {
     // const history = useHistory();
     const session = useSelector(state => state.session.user);
-    const [ credential, setCredential ] = useState('Demo-lition');
-    const [ password, setPassword ] = useState('password');
+    const [ credential, setCredential ] = useState("");
+    const [ password, setPassword ] = useState("");
     const [ errors, setErrors ] = useState({});
     const dispatch = useDispatch();
     const { closeModal } = useModal();
@@ -40,6 +40,7 @@ const LoginFormModal = () => {
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
+                    required
                     />
                 </label>
                 {errors.password && <div className="errors">{errors.password}</div>}
@@ -49,6 +50,7 @@ const LoginFormModal = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    required
                     />
                 </label>
                 <button className="form__button" type="submit">Login</button>
