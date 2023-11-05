@@ -53,7 +53,7 @@ const LoginFormModal = () => {
                     required
                     />
                 </label>
-                <button className="form__button" type="submit">Login</button>
+                <button className="form__button" type="submit">Log In</button>
             </form>
         </div>
 
