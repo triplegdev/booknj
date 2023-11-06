@@ -1,8 +1,8 @@
 .spots-grid {
-    margin: 24px auto;
+    margin: 24px 0;
     display: grid;
     grid-gap: 40px 24px;
-    grid-template-columns: repeat(auto-fill, minmax(calc(300px - 24px), calc(25% - 24px)));
+    grid-template-columns: repeat(auto-fill, minmax(280px, calc(25% - 18px)));
     justify-content: center;
     padding: 0 80px;
 }
