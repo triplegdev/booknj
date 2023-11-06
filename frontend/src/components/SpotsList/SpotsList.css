@@ -1,0 +1,47 @@
+.spots-grid {
+    margin: 24px auto;
+    display: grid;
+    grid-gap: 40px 24px;
+    grid-template-columns: repeat(auto-fill, minmax(calc(300px - 24px), calc(25% - 24px)));
+    justify-content: center;
+    padding: 0 80px;
+}
+
+.spot {
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+}
+
+.spot__image-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px;
+}
+
+.spot__image {
+    border-radius: 20px;
+    width: 100%;
+}
+
+.spot__overlay {
+    bottom: 55%;
+    left: 50%;
+    font-size: 12px;
+    position: absolute;
+    transform: translate(-50%);
+}
+
+.spot__info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.spot__price {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.spot__price strong {
+    padding-right: 5px;
+}

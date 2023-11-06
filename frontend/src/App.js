@@ -3,6 +3,7 @@ import Navigation from './components/Navigation';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { restoreUser } from './store/session';
+import SpotsList from './components/SpotsList';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <>
     <Navigation isLoaded={isLoaded}/>
+    <SpotsList />
     {isLoaded && <Switch></Switch>}
     </>
   );

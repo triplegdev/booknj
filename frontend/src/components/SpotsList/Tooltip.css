@@ -1,0 +1,7 @@
+.tooltip-text {
+    background-color: #444;
+    color: white;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+}

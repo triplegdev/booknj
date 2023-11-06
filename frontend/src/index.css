@@ -1,5 +1,5 @@
 /* TODO Add site wide styles */
-@font-face {
+/* @font-face {
     font-family: 'Dancing Script';
     src: url("/public/fonts/Dancing_Script/static/DancingScript-Bold.ttf") format("truetype");
 }
@@ -7,17 +7,28 @@
 @font-face {
     font-family: 'Open Sans';
     src: url("/public/fonts/Open_Sans/static/OpenSans-Regular.ttf") format("truetype");
+} */
+
+@font-face {
+    font-family: Circular;
+    font-weight: normal;
+    font-style: normal;
+    src: url("/public/fonts/Airbnb_Cereal-Book.woff2") format("woff2")
 }
 
-/*
-Coastal Chic
+@font-face {
+    font-family: Circular;
+    font-weight: 600;
+    font-style: normal;
+    src: url("/public/fonts/Airbnb_Cereal-Medium.woff2") format("woff2")
+}
 
-Light blue: #ADD8E6
-Sea green: #00FFFF
-White: #FFFFFF
-Sandy beige: #F5F5DC
-Driftwood gray: #A9A9A9
-*/
+@font-face {
+    font-family: Circular;
+    font-weight: 800;
+    font-style: normal;
+    src: url("/public/fonts/Airbnb_Cereal-Bold.woff2") format("woff2")
+}
 
 body {
     margin: 0;
@@ -28,9 +39,9 @@ body {
 body,
 input,
 button {
-    font-family: 'Open Sans';
+    font-family: 'Circular';
 }
 
-h1 {
+/* h1 {
     font-family: 'Dancing Script';
-}
+} */
