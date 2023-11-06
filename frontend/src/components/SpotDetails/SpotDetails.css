@@ -1,0 +1,112 @@
+.spot-details__details-reviews {
+    margin-bottom: 24px;
+    padding: 0 80px;
+}
+
+.spot-details h1 {
+    text-align: left;
+}
+
+.spot-details__images {
+    box-sizing: border-box;
+    display: grid;
+    grid-column-gap: 8px;
+    grid-template-columns: calc(50% - 4px) calc(50% - 4px);
+    height: 400px;
+    margin: 24px 0;
+    width: 100%;
+}
+
+/* style={{backgroundImage: "url('/images/blank.png')" */
+
+#big-picture,
+.picture-single {
+    border: 1px solid black;
+}
+
+#big-picture,
+#picture-group,
+.picture-single {
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+}
+
+#picture-group {
+    display: grid;
+    grid-gap: 8px;
+    grid-template: repeat(2, calc(50% - 4px)) / repeat(2, calc(50% - 4px));
+}
+
+#big-picture {
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+#top-right {
+    border-top-right-radius: 20px;
+}
+
+#bottom-right {
+    border-bottom-right-radius: 20px;
+}
+
+.spot-details__details-reservation {
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.spot-details__details h2 {
+    margin-top: 0;
+}
+
+.spot-details__reservation {
+    border: 1px solid rgb(221 217 221);
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.spot-details__reservation button {
+    background-color: #fb4969;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 20px;
+    padding: 14px 0;
+}
+
+.reservation__price-rating-review {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.reservation__price span {
+    font-size: 22px;
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.reservation__rating-review {
+    align-items: center;
+    display: flex;
+}
+
+.reservation__rating {
+    align-items: center;
+    display: flex;
+    padding-right: 5px;
+}
+
+.reservation__rating span {
+    font-weight: bold;
+    padding-left: 5px;
+}
+
+.reservation__reviews {
+    color: #717171;
+}

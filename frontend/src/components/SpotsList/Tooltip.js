@@ -6,34 +6,33 @@ const Tooltip = ({ text, children }) => {
   const [showTooltip, setShowTooltip] = useState(false);
   const tooltipText = useRef();
 
+  const handleMouseMove = (e) => {
+      let tooltipWidth;
+      if (tooltipText.current) tooltipWidth = tooltipText.current.offsetWidth;
+
+      const cursorX = e.clientX;
+      const cursorY = e.clientY + window.scrollY;
+      // console.log('cursorX', cursorX)
+
+      // center tooltip
+      const left = (cursorX - tooltipWidth / 2) + 5;
+      const top = cursorY + 10; // position is under the cursor
+
+      setTooltipPosition({ top, left });
+  }
+
   useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (showTooltip) {
+    if (showTooltip) {
+      window.addEventListener('mousemove', handleMouseMove);
 
-        let tooltipWidth;
-        if (tooltipText.current) tooltipWidth = tooltipText.current.offsetWidth;
-
-        const cursorX = e.clientX;
-        const cursorY = e.clientY + window.scrollY;
-
-        // center tooltip
-        const left = (cursorX - tooltipWidth / 2) + 5;
-        const top = cursorY + 10; // position is under the cursor
-
-        setTooltipPosition({ top, left });
-
-      } else {
-        // Set the tooltip position to a dummy position to prevent flashing
-        setTooltipPosition({ top: -100, left: -100 });
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
+      return () => {
         window.removeEventListener('mousemove', handleMouseMove);
-    };
+      }
+    }
+    // Set the tooltip position to a dummy position to prevent flashing
+    setTooltipPosition({ top: -100, left: -100 });
   }, [showTooltip]);
+
 
   const handleMouseEnter = () => {
     setShowTooltip(true);
@@ -50,7 +49,7 @@ const Tooltip = ({ text, children }) => {
       onMouseLeave={handleMouseLeave}
     >
       {children}
-      {showTooltip && tooltipPosition && (
+      {showTooltip && (
         <div
           className="tooltip-text"
           style={{ top: tooltipPosition.top, left: tooltipPosition.left }}

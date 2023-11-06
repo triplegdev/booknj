@@ -7,6 +7,11 @@
     padding: 0 80px;
 }
 
+.spots-grid a {
+    color: unset;
+    text-decoration: none;
+}
+
 .spot {
     cursor: pointer;
     position: relative;
