@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getSpots } from '../../store/spots';
 import Tooltip from './Tooltip';
+import ReviewStar from '../ReviewStar';
 import "./SpotsList.css";
 
 const SpotsList = () => {
@@ -36,7 +37,7 @@ const SpotsList = () => {
                             </div>
                             <div className="spot__info">
                                 <div>{spot.city}, {spot.state}</div>
-                                <div>{spot.avgRating ? formatAvgRating(spot.avgRating) : "New"}</div>
+                                <div className="spot__rating"><ReviewStar /><span>{spot.avgRating ? formatAvgRating(spot.avgRating) : "New"}</span></div>
                             </div>
                             <div className="spot__price"><strong>${spot.price}</strong>night</div>
                         </div>

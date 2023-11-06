@@ -37,6 +37,15 @@
     justify-content: space-between;
 }
 
+.spot__rating {
+    align-items: center;
+    display: flex;
+}
+
+.spot__rating span {
+    padding-left: 5px;
+}
+
 .spot__price {
     display: flex;
     justify-content: flex-start;
