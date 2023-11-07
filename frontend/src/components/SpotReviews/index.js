@@ -54,7 +54,7 @@ const SpotReviews = ({ spot }) => {
             </div>
             <div className="reviews__list">
                   {Object.values(reviews).map(review =>(
-                     <ul>
+                     <ul key={review.id}>
                         <li><strong>{review.User.firstName}</strong></li>
                         <li id="review-date">{`${getDate(review.createdAt)}`}</li>
                         <li>{review.review}</li>
