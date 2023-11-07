@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails } from "../../store/spots";
 import ReviewStar from "../ReviewStar";
+import SpotReviews from "../SpotReviews";
+import formatAvgRating from "../../util/util";
 import './SpotDetails.css';
 
 const SpotDetails = () => {
@@ -16,16 +18,6 @@ const SpotDetails = () => {
             setIsLoaded(true);
         });
     }, [dispatch, id]);
-
-    const formatAvgRating= (rating) => {
-        if (rating % 1 === 0) {
-            return rating.toFixed(1);
-        } else if (rating % 0.1 === 0) {
-            return rating.toString();
-        } else {
-            return rating.toFixed(2);
-        }
-    };
 
     return (
        <>
@@ -75,10 +67,11 @@ const SpotDetails = () => {
                                     }
                                 </div>
                             </div>
-                            <button>Reserve</button>
+                            <button onClick={() => alert('Feature Coming Soon.')}>Reserve</button>
                         </div>
                     </div>
                 </div>
+                <SpotReviews spot={spot}/>
             </div>
         }
        </>

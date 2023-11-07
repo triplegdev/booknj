@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSpots } from '../../store/spots';
 import Tooltip from './Tooltip';
 import ReviewStar from '../ReviewStar';
+import formatAvgRating from "../../util/util";
 import "./SpotsList.css";
 
 const SpotsList = () => {
@@ -13,16 +14,6 @@ const SpotsList = () => {
     useEffect(() => {
         dispatch(getSpots());
     },[dispatch]);
-
-    const formatAvgRating= (rating) => {
-        if (rating % 1 === 0) {
-            return rating.toFixed(1);
-        } else if (rating % 0.1 === 0) {
-            return rating.toString();
-        } else {
-            return rating.toFixed(2);
-        }
-    };
 
     return (
         <div className="spots-grid">

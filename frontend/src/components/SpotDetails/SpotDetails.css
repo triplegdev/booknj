@@ -3,6 +3,10 @@
     padding: 0 80px;
 }
 
+.spot-details {
+    border-bottom: 1px solid black;
+}
+
 .spot-details h1 {
     text-align: left;
 }
@@ -54,6 +58,7 @@
 .spot-details__details-reservation {
     display: grid;
     grid-template-columns: 70% 30%;
+    margin-bottom: 24px;
 }
 
 .spot-details__details h2 {
@@ -74,6 +79,7 @@
     background-color: #fb4969;
     border: none;
     border-radius: 8px;
+    cursor: pointer;
     color: white;
     font-size: 20px;
     padding: 14px 0;

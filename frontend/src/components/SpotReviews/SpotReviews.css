@@ -1,0 +1,42 @@
+.spots-details__reviews {
+    margin-top: 24px;
+}
+
+.reviews__rating {
+    align-items: center;
+    display: flex;
+    font-size: 28px;
+}
+
+.rating {
+    align-items: center;
+    display: flex;
+    padding-right: 5px;
+}
+
+#review-star {
+    transform: scale(1.5);
+    padding-right: 10px;
+}
+
+.rating span {
+    font-weight: bold;
+}
+
+.num-reviews {
+    color: #717171;
+}
+
+.reviews__list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reviews__list li {
+    margin: 10px 0;
+}
+
+#review-date {
+    color: #717171;
+    font-size: 14px;
+}
