@@ -1,11 +1,35 @@
 .spots-grid {
-    margin: 24px 0;
+    /* display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: space-between; */
     display: grid;
     grid-gap: 40px 24px;
-    grid-template-columns: repeat(auto-fill, minmax(280px, calc(25% - 18px)));
+    /* grid-template-columns: repeat(auto-fit, minmax(280px, calc(25% - 18px))); */
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     justify-content: center;
+    margin-bottom: 24px;
     padding: 0 80px;
 }
+
+/* Firefox made me do this */
+@media (max-width: 1350px) {
+    .spots-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 1050px) {
+    .spots-grid {
+        grid-template-columns: repeat(2, minmax(280px, 350px));
+      }
+  }
+
+  @media (max-width: 740px) {
+    .spots-grid {
+      grid-template-columns: repeat(1, minmax(280px, 400px));
+    }
+  }
 
 .spots-grid a {
     color: unset;
@@ -14,6 +38,8 @@
 
 .spot {
     cursor: pointer;
+    /* flex: 0 0 280px; */
+    /* min-width: 280px; */
     position: relative;
     text-align: center;
 }
@@ -35,6 +61,7 @@
     font-size: 12px;
     position: absolute;
     transform: translate(-50%);
+    width: 100%; /* added for firefox */
 }
 
 .spot__info {

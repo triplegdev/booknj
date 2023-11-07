@@ -4,6 +4,8 @@
 }
 
 .login {
+    border: 1px solid #aaa;
+    border-radius: 10px;
     margin: 0 auto;
     width: 300px;
 }
@@ -13,8 +15,6 @@ h1 {
 }
 
 .form {
-    border: 1px solid #aaa;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -52,4 +52,25 @@ input {
 .form__button:hover {
     background-color: #fb4969;
     cursor: pointer;
+}
+
+.form__button[disabled] {
+    background-color: gray;
+}
+
+.form__button[disabled]:hover {
+    background-color: gray;
+    cursor: unset;
+}
+
+.form__button-demo {
+    background-color: transparent;
+    border: none;
+    color: #1c846c;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 auto 12px auto;
+    text-decoration: underline;
 }

@@ -18,7 +18,6 @@ const LoginFormModal = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({});
         const payload = { credential, password };
         let user = await dispatch(login(payload));
 
@@ -30,13 +29,26 @@ const LoginFormModal = () => {
         }
     };
 
+    const handleDemoLogin = async (e) => {
+        setErrors({});
+        const payload = { credential: 'Demo-lition', password: 'password' };
+        let user = await dispatch(login(payload));
+
+        if (user.id) closeModal();
+        else {
+            const { errors } = await user.json();
+            setErrors(errors);
+        }
+    };
+
     return (
         <div className="login">
             <form className="form" onSubmit={handleSubmit}>
                 {errors.credential && <div className="errors">{errors.credential}</div>}
-                <label>
+                <label htmlFor="username">
                     Username or Email
                     <input
+                    id="username"
                     type="text"
                     value={credential}
                     onChange={(e) => setCredential(e.target.value)}
@@ -44,17 +56,19 @@ const LoginFormModal = () => {
                     />
                 </label>
                 {errors.password && <div className="errors">{errors.password}</div>}
-                <label>
+                <label htmlFor="password">
                     Password
                     <input
+                    id="password"
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     />
                 </label>
-                <button className="form__button" type="submit">Log In</button>
+                <button className="form__button" type="submit" disabled={credential.length < 4 || password.length < 6}>Log In</button>
             </form>
+            <button className="form__button-demo" onClick={handleDemoLogin}>Demo Login</button>
         </div>
 
     );

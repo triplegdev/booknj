@@ -6,7 +6,7 @@ import { restoreUser } from './store/session';
 import SpotsList from './components/SpotsList';
 import SpotDetails from './components/SpotDetails';
 
-const App = () => {
+const App = ({ children }) => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -19,6 +19,7 @@ const App = () => {
   return (
     <>
     <Navigation isLoaded={isLoaded}/>
+    <main style={{marginTop: "105px"}}>{children}</main>
     {isLoaded &&
     <Switch>
       <Route exact path="/" component={SpotsList} />

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import Logo from "./Logo";
@@ -11,7 +11,14 @@ const Navigation = ({ isLoaded }) => {
             <NavLink exact to="/">
                 <Logo />
             </NavLink>
-            {isLoaded && <ProfileButton user={user} />}
+            {isLoaded &&
+            <div className="nav__right">
+                <div className="nav__create-spot">
+                    {user && <Link>Create a New Spot</Link> }
+                </div>
+                <ProfileButton user={user} />
+            </div>
+            }
         </nav>
     );
 };

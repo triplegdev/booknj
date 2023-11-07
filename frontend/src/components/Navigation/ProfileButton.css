@@ -41,10 +41,25 @@
     display: none;
 }
 
+.profile-dropdown li {
+    margin: 5px 0;
+}
+
 .fa-solid.fa-bars {
     transform: scaleX(1.2);
 }
 
 .avatar-container {
     margin-left: 14px;
+}
+
+.menu__line {
+    color: #ccc;
+    border-top: 1px solid #ccc;
+    border-bottom: none;
+    margin-left: -20px;
+}
+
+#menu__manage-spots a {
+    color: unset;
 }
