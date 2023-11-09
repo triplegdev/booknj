@@ -14,7 +14,7 @@ const Navigation = ({ isLoaded }) => {
             {isLoaded &&
             <div className="nav__right">
                 <div className="nav__create-spot">
-                    {user && <Link>Create a New Spot</Link> }
+                    {user && <Link to="/spots/new">Create a New Spot</Link> }
                 </div>
                 <ProfileButton user={user} />
             </div>

@@ -1,0 +1,34 @@
+@import '../LoginFormModal/LoginForm.css';
+
+.new-spot {
+    margin: 0 auto 24px auto;
+    width: 500px;
+}
+
+.form {
+    padding: 0;
+}
+
+.new-spot h1 {
+    text-align: left;
+}
+
+.new-spot h2 {
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.new-spot p {
+    margin-top: 3px;
+}
+
+.new-spot textarea {
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.new-spot button {
+    width: 200px;
+}

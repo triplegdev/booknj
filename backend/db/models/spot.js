@@ -71,6 +71,12 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Spot',
+    hooks: {
+      beforeDestroy: (spot) => {
+        // Find and delete all associated images
+        sequelize.models.Image.destroy({ where: { imageableId: spot.id, imageableType: 'Spot' } });
+      }
+    }
   });
   return Spot;
 };
