@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails } from "../../store/spots";
@@ -18,6 +18,8 @@ const SpotDetails = () => {
             setIsLoaded(true);
         });
     }, [dispatch, id]);
+
+    if (!spot) return <Redirect to="/" />;
 
     return (
        <>

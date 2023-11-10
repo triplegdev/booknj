@@ -38,6 +38,51 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .isFloat({ min: 0})
         .withMessage('Price per day is required'),
+    check('preview') // added for frontend project
+        .exists({ checkFalsy: true })
+        .withMessage('Preview image is required')
+        .custom((value) => {
+            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+                throw new Error('Preview image must end in png, jpg or jpeg');
+            }
+            return true;
+        }),
+    check('image1')
+        .notEmpty()
+        .optional({ checkFalsy: true })
+        .custom((value) => {
+            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+                throw new Error('Image must end in png, jpg or jpeg');
+            }
+            return true;
+        }),
+    check('image2')
+        .notEmpty()
+        .optional({ checkFalsy: true })
+        .custom((value) => {
+            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+                throw new Error('Image must end in png, jpg or jpeg');
+            }
+            return true;
+        }),
+    check('image3')
+        .notEmpty()
+        .optional({ checkFalsy: true })
+        .custom((value) => {
+            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+                throw new Error('Image must end in png, jpg or jpeg');
+            }
+            return true;
+        }),
+    check('image4')
+        .notEmpty()
+        .optional({ checkFalsy: true })
+        .custom((value) => {
+            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+                throw new Error('Image must end in png, jpg or jpeg');
+            }
+            return true;
+        }),
     handleValidationErrors
 ];
 
