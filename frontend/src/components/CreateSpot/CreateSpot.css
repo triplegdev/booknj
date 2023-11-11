@@ -32,3 +32,47 @@
 .new-spot button {
     width: 200px;
 }
+
+.new-spot__city-state {
+    display: grid;
+    grid-gap: 18px;
+    grid-template-columns: calc(60% - 9px) calc(40% - 9px);
+    position: relative;
+}
+
+.new-spot__label-error {
+    align-items: center;
+    display: flex;
+}
+
+.new-spot__label-error .errors {
+    margin: 0 5px;
+
+}
+
+.new-spot__input-span {
+    display: flex;
+}
+
+.new-spot__input-span span {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-left: 4px;
+}
+
+.new-spot__lat-lng {
+    display: grid;
+    grid-gap: 18px;
+    grid-template-columns: calc(50% - 9px) calc(50% - 9px);
+    position: relative;
+}
+
+.price__span {
+    align-items: center;
+    display: flex;
+}
+
+.price__span span {
+    padding-right: 5px;
+}

@@ -19,7 +19,16 @@ const SpotDetails = () => {
         });
     }, [dispatch, id]);
 
-    if (!spot) return <Redirect to="/" />;
+    if (isLoaded && !spot) return <Redirect to="/" />;
+
+
+    const spotImages = isLoaded ? Object.values(spot.SpotImages) : [];
+    const preview = isLoaded ? spotImages.find(image => image.preview === true) : null;
+    const images = isLoaded ? spotImages.filter(image => image.preview === false) : null;
+
+
+    const imageIds = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
+
 
     return (
        <>
@@ -31,15 +40,19 @@ const SpotDetails = () => {
                         {`${spot.city}, ${spot.state}, ${spot.country}`}
                     </div>
                     <div className="spot-details__images">
-                        {/* {spot.SpotImages.map(img => (
-                            <li>{img.url}</li>
-                        ))} */}
-                        <div id="big-picture" />
+                        <div id="big-picture" style={{backgroundImage: "url(/images/blank.png)"}}>
+                            <div className="spot-details__overlay">
+                                {(preview && preview.url) || "no image"}
+                            </div>
+                        </div>
                         <div id="picture-group">
-                            <div id="top-left" className="picture-single" />
-                            <div id="top-right" className="picture-single" />
-                            <div id="bottom-left" className="picture-single" />
-                            <div id="bottom-right" className="picture-single" />
+                            {images.map((image, i) => (
+                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: "url(/images/blank.png)"}}>
+                                    <div className="spot-details__overlay">
+                                        {image.url || "no image"}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="spot-details__details-reservation">

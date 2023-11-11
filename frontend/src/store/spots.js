@@ -3,8 +3,8 @@ import { csrfFetch } from "./csrf";
 const GET_SPOTS = 'session/GET_SPOTS';
 const GET_SPOT_DETAILS = 'session/GET_SPOTS_DETAILS';
 const GET_SPOT_REVIEWS = 'session/GET_SPOTS_REVIEWS';
-const POST_SPOT = 'session/POST_SPOT';
-const POST_IMAGE = 'session/POST_IMAGE';
+// const POST_SPOT = 'session/POST_SPOT';
+// const POST_IMAGE = 'session/POST_IMAGE';
 
 export const listSpots = (spots) => ({
     type: GET_SPOTS,
@@ -22,15 +22,15 @@ export const spotReviews = (reviews, spotId) => ({
     spotId
 });
 
-export const createSpot = (spot) => ({
-    type: POST_SPOT,
-    spot
-});
+// export const createSpot = (spot) => ({
+//     type: POST_SPOT,
+//     spot
+// });
 
-export const uploadImage = (image) => ({
-    type: POST_IMAGE,
-    image
-});
+// export const uploadImage = (image) => ({
+//     type: POST_IMAGE,
+//     image
+// });
 
 export const getSpots = () => async dispatch => {
     try {
@@ -76,7 +76,7 @@ export const postSpot = (spot) => async dispatch => {
         const spot = await res.json();
         console.log(spot);
         // dispatch(createSpot(reviews, id));
-        return spot;
+        // return spot;
     } catch (err) {
         return err;
     }
@@ -150,9 +150,9 @@ const spotsReducer = (state = {}, action) => {
             //     }
             // }
         }
-        case POST_SPOT: {
-            return { ...state, [action.spot.id]: action.spot }
-        }
+        // case POST_SPOT: {
+        //     return { ...state, [action.spot.id]: action.spot }
+        // }
         default: {
             return state;
         }

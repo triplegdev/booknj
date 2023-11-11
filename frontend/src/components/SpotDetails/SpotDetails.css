@@ -26,6 +26,9 @@
 #big-picture,
 .picture-single {
     border: 1px solid black;
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
 
 #big-picture,
@@ -63,6 +66,19 @@
 
 .spot-details__details h2 {
     margin-top: 0;
+}
+
+/* .spot-details__image {
+    border-radius: 20px;
+    width: 100%;
+} */
+
+.spot-details__overlay {
+    bottom: 50%;
+    left: 50%;
+    font-size: 12px;
+    position: absolute;
+    transform: translate(-50%);
 }
 
 .spot-details__reservation {

@@ -379,7 +379,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             'createdAt',
             'updatedAt',
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
-            [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
+            [literal('(SELECT "url" FROM "Images" WHERE "Images"."imageableId" = "Spot"."id" AND "Images"."preview" = true LIMIT 1)'), 'previewImage']
         ],
         group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
 
@@ -632,7 +632,7 @@ router.get('/', queryValidators, async (req, res) => {
             'createdAt',
             'updatedAt',
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
-            [literal('CASE WHEN "SpotImages"."preview" = true THEN "SpotImages"."url" ELSE null END'), 'previewImage']
+            [literal('(SELECT "url" FROM "Images" WHERE "Images"."imageableId" = "Spot"."id" AND "Images"."preview" = true LIMIT 1)'), 'previewImage']
         ],
         group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
         order: [['id']],

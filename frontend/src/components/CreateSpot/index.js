@@ -23,20 +23,6 @@ const CreateSpot = () => {
     const [ image3, setImage3 ] = useState("");
     const [ image4, setImage4 ] = useState("");
     const [ errors, setErrors ] = useState({});
-    // const [ imageErrors, setImageErrors ] = useState({});
-    // const [ hasSubmitted, setHasSubmitted ] = useState(false)
-
-    // useEffect(() => {
-    //     const errors = {};
-    //     if (!previewImage) errors.preview = "Preview image is required";
-    //     if (!previewImage.endsWith('.png') || !previewImage.endsWith('.jpg'), !previewImage.endsWith('.jpeg')) errors.preview = "Preview Image must end in png, jpg or jpeg";
-
-    //     if (!image1.endsWith('.png') || !image1.endsWith('.jpg') || !image1.endsWith('.jpeg')) errors.image1 = "Image must end in png, jpg or jpeg";
-    //     if (!image2.endsWith('.png') || !image2.endsWith('.jpg') || !image2.endsWith('.jpeg')) errors.image2 = "Image must end in png, jpg or jpeg";
-    //     if (!image3.endsWith('.png') || !image3.endsWith('.jpg') || !image3.endsWith('.jpeg')) errors.image3 = "Image must end in png, jpg or jpeg";
-    //     if (!image4.endsWith('.png') || !image4.endsWith('.jpg') || !image4.endsWith('.jpeg')) errors.image4 = "Image must end in png, jpg or jpeg";
-    //     setImageErrors(errors);
-    // }, [previewImage, image1, image2, image3, image4]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +44,7 @@ const CreateSpot = () => {
             image3,
             image4
         };
-        console.log(payload)
+        // console.log(payload)
 
         const images = [
             { url: preview, preview: true },
@@ -85,11 +71,6 @@ const CreateSpot = () => {
             setErrors(errors);
         }
 
-        // if (!Object.values(imageErrors).length) {
-
-        // }
-
-
         // setCountry("");
         // setAddress("");
         // setCity("");
@@ -104,20 +85,21 @@ const CreateSpot = () => {
         // setImage2("");
         // setImage3("");
         // setImage4("");
-        // setImageErrors({});
-        // setHasSubmitted(false);
     };
 
     if (!session) return <Redirect to="/" />;
 
     return (
         <div className="new-spot">
-            <h1>Creat a new Spot</h1>
+            <h1>Create a new Spot</h1>
             <h2>Where's your place located?</h2>
             <p>Guests will only get your exact address once they booked a reservation</p>
             <form className="form" onSubmit={handleSubmit}>
                 <label htmlFor="country">
-                    Country
+                    <div className="new-spot__label-error">
+                        Country
+                        {errors.country && <div className="errors">{errors.country}</div>}
+                    </div>
                     <input
                     id="country"
                     type="text"
@@ -126,9 +108,11 @@ const CreateSpot = () => {
                     required
                     />
                 </label>
-                {errors.country && <div className="errors">{errors.country}</div>}
                 <label htmlFor="address">
-                    Street Adress
+                    <div className="new-spot__label-error">
+                        Street Address
+                        {errors.address && <div className="errors">{errors.address}</div>}
+                    </div>
                     <input
                     id="address"
                     type="text"
@@ -137,51 +121,72 @@ const CreateSpot = () => {
                     required
                     />
                 </label>
-                {errors.address && <div className="errors">{errors.address}</div>}
-                <label htmlFor="city">
-                    City
-                    <input
-                    id="city"
-                    type="text"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    required
-                    />
-                </label>
-                {errors.city && <div className="errors">{errors.city}</div>}
-                <label htmlFor="state">
-                    State
-                    <input
-                    id="state"
-                    type="text"
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    required
-                    />
-                </label>
-                {errors.state &&<div className="errors">{errors.state}</div>}
-                <label htmlFor="latitude">
-                    Latitude
-                    <input
-                    id="latitude"
-                    type="text"
-                    value={latitude}
-                    onChange={(e) => setLatitude(e.target.value)}
-                    required
-                    />
-                </label>
-                {errors.lat && <div className="errors">{errors.lat}</div>}
-                <label htmlFor="longitude">
-                    Longitude
-                    <input
-                    id="longitude"
-                    type="text"
-                    value={longitude}
-                    onChange={(e) => setLongitude(e.target.value)}
-                    required
-                    />
-                </label>
-                {errors.lng && <div className="errors">{errors.lng}</div>}
+                <div className="new-spot__city-state">
+                    <label htmlFor="city">
+                        <div className="new-spot__label-error">
+                            City
+                            {errors.city && <div className="errors">{errors.city}</div>}
+                        </div>
+                        <div className="new-spot__input-span">
+                            <input
+                            id="city"
+                            type="text"
+                            value={city}
+                            onChange={(e) => setCity(e.target.value)}
+                            required
+                            />
+                            <span>,</span>
+                        </div>
+                    </label>
+                    <label htmlFor="state">
+                        <div className="new-spot__label-error">
+                            State {errors.state &&<div className="errors">{errors.state}</div>}
+                        </div>
+                        <div className="new-spot__input-span">
+                            <input
+                            id="state"
+                            type="text"
+                            value={state}
+                            onChange={(e) => setState(e.target.value)}
+                            required
+                            />
+                        </div>
+                    </label>
+                </div>
+                <div className="new-spot__lat-lng">
+                    <label htmlFor="latitude">
+                        <div className="new-spot__label-error">
+                            Latitude
+                            {errors.lat && <div className="errors">{errors.lat}</div>}
+                        </div>
+                        <div className="new-spot__input-span">
+                            <input
+                            id="latitude"
+                            type="text"
+                            value={latitude}
+                            onChange={(e) => setLatitude(e.target.value)}
+                            required
+                            />
+                            <span>,</span>
+                        </div>
+                    </label>
+                    <label htmlFor="longitude">
+                        <div className="new-spot__label-error">
+                            Longitude
+                            {errors.lng && <div className="errors">{errors.lng}</div>}
+                        </div>
+                        <div className="new-spot__input-span">
+                            <input
+                            id="longitude"
+                            type="text"
+                            value={longitude}
+                            onChange={(e) => setLongitude(e.target.value)}
+                            required
+                            />
+                        </div>
+                    </label>
+                </div>
+
                 <label htmlFor="description">
                     <h2>Describe your place to guests</h2>
                     <p>Mention the best features of you space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
@@ -210,13 +215,16 @@ const CreateSpot = () => {
                 <label htmlFor="price">
                     <h2>Set a base price for your spot</h2>
                     <p>Competitive pricing can help your listing stand out and rank higher in search results.</p>
-                    $<input
-                    id="price"
-                    type="text"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    required
-                    />
+                    <div className="price__span">
+                        <span>$</span>
+                        <input
+                        id="price"
+                        type="text"
+                        value={price}
+                        onChange={(e) => setPrice(e.target.value)}
+                        required
+                        />
+                    </div>
                 </label>
                 {errors.price && <div className="errors">{errors.price}</div>}
                 <label htmlFor="preview">
