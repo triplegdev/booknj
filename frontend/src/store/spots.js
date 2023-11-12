@@ -1,10 +1,11 @@
 import { csrfFetch } from "./csrf";
 
-const GET_SPOTS = 'session/GET_SPOTS';
-const GET_SPOT_DETAILS = 'session/GET_SPOTS_DETAILS';
-const GET_SPOT_REVIEWS = 'session/GET_SPOTS_REVIEWS';
-// const POST_SPOT = 'session/POST_SPOT';
-// const POST_IMAGE = 'session/POST_IMAGE';
+const GET_SPOTS = 'spots/GET_SPOTS';
+const GET_SPOT_DETAILS = 'spots/GET_SPOTS_DETAILS';
+const GET_SPOT_REVIEWS = 'spots/GET_SPOTS_REVIEWS';
+// const POST_SPOT = 'spots/POST_SPOT';
+// const POST_IMAGE = 'spots/POST_IMAGE';
+const POST_REVIEW = 'spots/POST_REVIEW';
 
 export const listSpots = (spots) => ({
     type: GET_SPOTS,
@@ -31,6 +32,12 @@ export const spotReviews = (reviews, spotId) => ({
 //     type: POST_IMAGE,
 //     image
 // });
+
+export const createReview = (review, spotId) => ({
+    type: POST_REVIEW,
+    review,
+    spotId
+});
 
 export const getSpots = () => async dispatch => {
     try {
@@ -76,7 +83,7 @@ export const postSpot = (spot) => async dispatch => {
         const spot = await res.json();
         console.log(spot);
         // dispatch(createSpot(reviews, id));
-        // return spot;
+        return spot;
     } catch (err) {
         return err;
     }
@@ -106,6 +113,24 @@ export const postImages = (images, spotId) => async dispatch => {
     return imgArr;
 
 };
+
+export const postReview = (review, spotId) => async dispatch => {
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(review)
+    }
+    try {
+        const res = await csrfFetch(`/api/spots/${spotId}/reviews`, options);
+        const review = await res.json();
+        await dispatch(createReview(review, spotId));
+        await dispatch(getSpotDetails(spotId));
+        return review;
+    } catch (err) {
+        return err;
+    }
+};
+
+
 
 const spotsReducer = (state = {}, action) => {
     switch(action.type) {
@@ -142,17 +167,22 @@ const spotsReducer = (state = {}, action) => {
                     Reviews: reviews
                 }
             };
-            // return {
-            //     ...state,
-            //     [action.spotId]: {
-            //         ...state[action.spotId],
-            //         ...action.reviews
-            //     }
-            // }
         }
         // case POST_SPOT: {
         //     return { ...state, [action.spot.id]: action.spot }
         // }
+        case POST_REVIEW: {
+            return {
+                ...state,
+                [action.spotId]: {
+                    ...state[action.spotId],
+                    Reviews: {
+                        ...state[action.spotId].Reviews,
+                        [action.review.id]: action.review
+                    }
+                }
+            }
+        }
         default: {
             return state;
         }

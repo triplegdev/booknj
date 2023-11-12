@@ -27,6 +27,16 @@
     color: #717171;
 }
 
+.spots-details__reviews button {
+    background-color: #717171;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    margin-top: 10px;
+    padding: 5px 10px;
+}
+
 .reviews__list ul {
     list-style: none;
     padding: 0;

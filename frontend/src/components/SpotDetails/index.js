@@ -11,6 +11,7 @@ const SpotDetails = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
+    // const reviews = useSelector(state => state.spots[spot.id].Reviews);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {

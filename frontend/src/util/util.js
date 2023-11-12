@@ -1,11 +1,9 @@
 const formatAvgRating= (rating) => {
-    if (rating % 1 === 0) {
-        return rating.toFixed(1);
-    } else if (rating % 0.1 === 0) {
-        return rating.toString();
-    } else {
-        return rating.toFixed(2);
-    }
+    const floatNumber = parseFloat(rating);
+    //add two decimal places and remove trailing zeroes
+    const formattedNumber = floatNumber.toFixed(2).replace(/\.?0+$/, '');
+    //add .0 for numbers without decimal places
+    return floatNumber % 1 === 0 ? formattedNumber + '.0' : formattedNumber;
 };
 
 export default formatAvgRating;
