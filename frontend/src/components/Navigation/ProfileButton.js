@@ -1,5 +1,4 @@
-
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
@@ -74,7 +73,7 @@ const ProfileButton = ({ user }) => {
                 <li>{user.firstName} {user.lastName}</li>
                 <li id="menu__email">{user.email}</li>
                 <hr className="menu__line" />
-                <li id="menu__manage-spots">Manage Spots</li>
+                <li id="menu__manage-spots"><Link to="/spots/current" onClick={closeMenu}>Manage Spots</Link></li>
                 <hr className="menu__line" />
                 <li>
                 <button className="menu__logout" onClick={logoutSession}>Log Out</button>

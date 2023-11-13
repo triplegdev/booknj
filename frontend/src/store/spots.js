@@ -89,6 +89,22 @@ export const postSpot = (spot) => async dispatch => {
     }
 };
 
+export const editSpot = (spot, id) => async dispatch => {
+    const options = {
+        method: 'PUT',
+        body: JSON.stringify(spot)
+    }
+    try {
+        const res = await csrfFetch(`/api/spots/${id}`, options);
+        const editedSpot = await res.json();
+        console.log(editedSpot);
+        // dispatch(editSpot(spot.id));
+        return editedSpot;
+    } catch (err) {
+        return err;
+    }
+}
+
 export const postImages = (images, spotId) => async dispatch => {
     const imgArr = [];
     for (const image of images) {

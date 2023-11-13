@@ -1,0 +1,58 @@
+@import '../SpotsList/SpotsList.css';
+
+.manage-spots {
+    padding: 0 80px;
+}
+
+.manage-spots h1 {
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.manage-spots__create-spot {
+    background-color: #717171;
+    color: white;
+    cursor: pointer;
+    margin-top: 5px;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.manage-spots .spots-grid {
+    margin-top: 50px;
+    padding: 0;
+}
+
+.spots-grid__update-delete {
+    display: flex;
+    margin: 10px auto;
+}
+
+.spots-grid__update-delete button {
+    cursor: pointer;
+    margin-right: 20px;
+}
+
+.delete-spot {
+    padding: 20px;
+}
+
+.delete-spot button {
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    padding: 20px 0;
+    width: 100%;
+}
+
+.delete-spot__yes {
+    background-color: #ff385c;
+    margin-bottom: 10px;
+}
+
+.delete-spot__no {
+    background-color: #717171;
+}

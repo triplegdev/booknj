@@ -6,6 +6,8 @@ import { restoreUser } from './store/session';
 import SpotsList from './components/SpotsList';
 import SpotDetails from './components/SpotDetails';
 import CreateSpot from './components/CreateSpot';
+import ManageSpots from './components/ManageSpots';
+import EditSpot from './components/ManageSpots/EditSpot';
 
 const App = ({ children }) => {
   const dispatch = useDispatch();
@@ -25,6 +27,8 @@ const App = ({ children }) => {
     <Switch>
       <Route exact path="/" component={SpotsList} />
       <Route path="/spots/new" component={CreateSpot} />
+      <Route path="/spots/current" component={ManageSpots} />
+      <Route path="/spots/:id/edit" component={EditSpot} />
       <Route path="/spots/:id" component={SpotDetails} />
     </Switch>
     }
