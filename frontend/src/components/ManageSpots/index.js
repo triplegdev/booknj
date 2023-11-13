@@ -46,7 +46,7 @@ const ManageSpots = () => {
                             <Link to={`/spots/${spot.id}/edit`}><button>Update</button></Link>
                             <OpenModalButton
                                 buttonText="Delete"
-                                modalComponent={<DeleteSpot />}
+                                modalComponent={<DeleteSpot spot={spot}/>}
                             />
                         </div>
                     </div>
