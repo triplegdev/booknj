@@ -5,7 +5,8 @@ const GET_SPOT_DETAILS = 'spots/GET_SPOTS_DETAILS';
 const GET_SPOT_REVIEWS = 'spots/GET_SPOTS_REVIEWS';
 // const POST_SPOT = 'spots/POST_SPOT';
 // const POST_IMAGE = 'spots/POST_IMAGE';
-const POST_REVIEW = 'spots/POST_REVIEW';
+const POST_SPOT_REVIEW = 'spots/POST_SPOT_REVIEW';
+const DELETE_SPOT_REVIEW = 'spots/DELETE_SPOT_REVIEW';
 
 export const listSpots = (spots) => ({
     type: GET_SPOTS,
@@ -34,10 +35,16 @@ export const spotReviews = (reviews, spotId) => ({
 // });
 
 export const createReview = (review, spotId) => ({
-    type: POST_REVIEW,
+    type: POST_SPOT_REVIEW,
     review,
     spotId
 });
+
+// export const deleteReview = (reviewId, spotId) => ({
+//     type: DELETE_SPOT_REVIEW,
+//     reviewId,
+//     spotId
+// });
 
 export const getSpots = () => async dispatch => {
     try {
@@ -146,6 +153,20 @@ export const postReview = (review, spotId) => async dispatch => {
     }
 };
 
+export const deleteSpotReview = (reviewId, spotId) => async dispatch => {
+    const options = { method: 'DELETE' };
+    try {
+        const res = await csrfFetch(`/api/reviews/${reviewId}`, options);
+        const review = await res.json();
+        // await dispatch(deleteReview(reviewId, spotId));
+        await dispatch(getSpotDetails(spotId));
+        await dispatch(getSpotReviews(spotId));
+        return review;
+    } catch (err) {
+        return err;
+    }
+};
+
 
 
 const spotsReducer = (state = {}, action) => {
@@ -187,7 +208,7 @@ const spotsReducer = (state = {}, action) => {
         // case POST_SPOT: {
         //     return { ...state, [action.spot.id]: action.spot }
         // }
-        case POST_REVIEW: {
+        case POST_SPOT_REVIEW: {
             return {
                 ...state,
                 [action.spotId]: {
@@ -199,6 +220,11 @@ const spotsReducer = (state = {}, action) => {
                 }
             }
         }
+        // case DELETE_SPOT_REVIEW: {
+        //     const newState = { ...state };
+        //     delete newState[action.spotId].Reviews[action.reviewId];
+        //     return newState;
+        // }
         default: {
             return state;
         }

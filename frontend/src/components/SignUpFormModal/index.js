@@ -110,7 +110,7 @@ const SignUpFormModal = () => {
                     />
                 </label>
                 {errors.confirmPassword && <div className="errors">{errors.confirmPassword}</div>}
-                <button className="form__button" type="submit">Sign Up</button>
+                <button className="form__button" type="submit" disabled={username.length < 4 || password.length < 6}>Sign Up</button>
             </form>
         </div>
 

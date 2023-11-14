@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/session";
@@ -10,6 +10,7 @@ import "./ProfileButton.css";
 
 const ProfileButton = ({ user }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [showMenu, setShowMenu] = useState(false);
     const ulRef = useRef();
 
@@ -38,6 +39,7 @@ const ProfileButton = ({ user }) => {
         e.preventDefault();
         dispatch(logout());
         closeMenu();
+        history.push('/');
     };
 
     const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
@@ -70,7 +72,7 @@ const ProfileButton = ({ user }) => {
                 :
                 <>
                 <li>{user.username}</li>
-                <li>{user.firstName} {user.lastName}</li>
+                <li>Hello, {user.firstName}</li>
                 <li id="menu__email">{user.email}</li>
                 <hr className="menu__line" />
                 <li id="menu__manage-spots"><Link to="/spots/current" onClick={closeMenu}>Manage Spots</Link></li>

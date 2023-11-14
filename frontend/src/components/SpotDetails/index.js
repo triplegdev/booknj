@@ -2,9 +2,8 @@ import { useParams, Redirect } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails } from "../../store/spots";
-import ReviewStar from "../ReviewStar";
+import SpotReserve from "./SpotReserve";
 import SpotReviews from "../SpotReviews";
-import formatAvgRating from "../../util/util";
 import './SpotDetails.css';
 
 const SpotDetails = () => {
@@ -60,30 +59,7 @@ const SpotDetails = () => {
                             <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
                             <p>{spot.description}</p>
                         </div>
-                        <div className="spot-details__reservation">
-                            <div className="reservation__price-rating-review">
-                                <div className="reservation__price"><span>{`$${spot.price}`}</span>night</div>
-                                <div className="reservation__rating-review">
-                                    { spot.avgRating ?
-                                    <>
-                                    <div className="reservation__rating">
-                                        <ReviewStar />
-                                        <span>{`${formatAvgRating(spot.avgRating)} ·`}</span>
-                                    </div>
-                                    <div className="reservation__reviews">
-                                        {`${spot.numReviews} ${spot.numReviews === 1 ? 'review' : 'reviews'}`}
-                                    </div>
-                                    </>
-                                    :
-                                    <div className="reservation__rating">
-                                        <ReviewStar />
-                                        <span>New</span>
-                                    </div>
-                                    }
-                                </div>
-                            </div>
-                            <button onClick={() => alert('Feature Coming Soon.')}>Reserve</button>
-                        </div>
+                        <SpotReserve spot={spot}/>
                     </div>
                 </div>
                 <SpotReviews spot={spot}/>

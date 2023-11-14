@@ -1,13 +1,13 @@
 import { useModal } from '../../context/Modal';
 import { useDispatch } from 'react-redux';
-import { deleteCurrentSpot } from '../../store/userSpots';
+import { deleteSpotReview } from '../../store/spots';
 
-const DeleteSpotModal = ({ spot }) => {
+const DeleteReviewModal = ({ review, spot }) => {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     const handleDelete = () => {
-        dispatch(deleteCurrentSpot(spot.id));
+        dispatch(deleteSpotReview(review.id, spot.id));
         closeModal();
     }
 
@@ -21,4 +21,4 @@ const DeleteSpotModal = ({ spot }) => {
     );
 };
 
-export default DeleteSpotModal;
+export default DeleteReviewModal;

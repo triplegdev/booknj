@@ -63,3 +63,12 @@
 #menu__manage-spots a {
     color: unset;
 }
+
+.menu__logout {
+    background-color: #717171;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 5px 10px;
+}

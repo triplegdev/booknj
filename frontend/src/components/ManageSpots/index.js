@@ -6,7 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import ReviewStar from '../ReviewStar';
 import formatAvgRating from "../../util/util";
 import './ManageSpots.css';
-import DeleteSpot from './DeleteSpotModal';
+import DeleteSpotModal from './DeleteSpotModal';
 
 const ManageSpots = () => {
     const dispatch = useDispatch();
@@ -46,7 +46,7 @@ const ManageSpots = () => {
                             <Link to={`/spots/${spot.id}/edit`}><button>Update</button></Link>
                             <OpenModalButton
                                 buttonText="Delete"
-                                modalComponent={<DeleteSpot spot={spot}/>}
+                                modalComponent={<DeleteSpotModal spot={spot}/>}
                             />
                         </div>
                     </div>

@@ -5,6 +5,7 @@ import formatAvgRating from "../../util/util";
 import { getSpotReviews } from "../../store/spots";
 import CreateReviewModal from "../CreateReviewModal";
 import OpenModalButton from "../OpenModalButton";
+import DeleteReviewModal from "./DeleteReviewModal";
 import './SpotReviews.css'
 
 const SpotReviews = ({ spot }) => {
@@ -72,6 +73,12 @@ const SpotReviews = ({ spot }) => {
                         <li><strong>{(user && review.userId === user.id) ? user.firstName : review.User.firstName}</strong></li>
                         <li id="review-date">{`${getDate(review.createdAt)}`}</li>
                         <li>{review.review}</li>
+                        {(user && user.id === review.userId) &&
+                           <OpenModalButton
+                              buttonText="Delete"
+                              modalComponent={<DeleteReviewModal review={review} spot={spot}/>}
+                           />
+                        }
                      </ul>
                   ))}
             </div>
