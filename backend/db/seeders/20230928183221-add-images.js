@@ -9,11 +9,11 @@ if (process.env.NODE_ENV === 'production') {
 
 const images = [
   { "imageableId": 1, "imageableType": "Spot", "url": "http://booknj.aa/images/spot1.jpg", "preview": true },
-  { "imageableId": 2, "imageableType": "Spot", "url": "http://booknj.aa/images/spot2.jpg", "preview": false },
+  { "imageableId": 2, "imageableType": "Spot", "url": "http://booknj.aa/images/spot2.jpg", "preview": true },
   { "imageableId": 3, "imageableType": "Spot", "url": "http://booknj.aa/images/spot3.jpg", "preview": true },
-  { "imageableId": 4, "imageableType": "Spot", "url": "http://booknj.aa/images/spot4.jpg", "preview": false },
+  { "imageableId": 4, "imageableType": "Spot", "url": "http://booknj.aa/images/spot4.jpg", "preview": true },
   { "imageableId": 5, "imageableType": "Spot", "url": "http://booknj.aa/images/spot5.jpg", "preview": true },
-  { "imageableId": 6, "imageableType": "Spot", "url": "http://booknj.aa/images/spot6.jpg", "preview": false },
+  { "imageableId": 6, "imageableType": "Spot", "url": "http://booknj.aa/images/spot6.jpg", "preview": true },
   { "imageableId": 1, "imageableType": "Review", "url": "http://booknj.aa/images/review1-user2-spot1.jpg", "preview": true },
   { "imageableId": 2, "imageableType": "Review", "url": "http://booknj.aa/images/review2-user1-spot2.jpg", "preview": false },
   // { "imageableId": 3, "imageableType": "Review", "url": "http://booknj.aa/images/review3-user2-spot3.jpg", "preview": true },
