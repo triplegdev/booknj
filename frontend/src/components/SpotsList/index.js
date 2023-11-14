@@ -23,7 +23,7 @@ const SpotsList = () => {
                         <Link to={`/spots/${spot.id}`}>
                             <div className="spot">
                                 <div className="spot__image-container">
-                                    <img className="spot__image" src="/images/blank.png" alt="" />
+                                    <img className="spot__image" src="/images/demo-house_dark.jpg" alt="" />
                                     <div className="spot__overlay">
                                         {spot.previewImage || "no image"}
                                     </div>

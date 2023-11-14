@@ -88,7 +88,7 @@ export const postSpot = (spot) => async dispatch => {
     try {
         const res = await csrfFetch('/api/spots', options);
         const spot = await res.json();
-        console.log(spot);
+        // console.log(spot);
         // dispatch(createSpot(reviews, id));
         return spot;
     } catch (err) {
@@ -104,7 +104,7 @@ export const editSpot = (spot, id) => async dispatch => {
     try {
         const res = await csrfFetch(`/api/spots/${id}`, options);
         const editedSpot = await res.json();
-        console.log(editedSpot);
+        // console.log(editedSpot);
         // dispatch(editSpot(spot.id));
         return editedSpot;
     } catch (err) {
@@ -125,7 +125,7 @@ export const postImages = (images, spotId) => async dispatch => {
                 const res = await csrfFetch(url, options);
                 const image = await res.json();
                 imgArr.push(image);
-                console.log(image);
+                // console.log(image);
                 // dispatch(uploadImage(image));
                 // return image;
             } catch (err) {

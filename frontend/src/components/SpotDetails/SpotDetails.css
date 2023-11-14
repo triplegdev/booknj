@@ -1,5 +1,6 @@
 .spot-details__details-reviews {
-    margin-bottom: 24px;
+    margin: 0 auto 24px auto;
+    max-width: 1000px;
     padding: 0 80px;
 }
 
@@ -16,7 +17,7 @@
     display: grid;
     grid-column-gap: 8px;
     grid-template-columns: calc(50% - 4px) calc(50% - 4px);
-    height: 400px;
+    height: 375px;
     margin: 24px 0;
     width: 100%;
 }
@@ -35,6 +36,7 @@
 #picture-group,
 .picture-single {
     box-sizing: border-box;
+    color: #ccc;
     height: 100%;
     width: 100%;
 }
@@ -60,7 +62,7 @@
 
 .spot-details__details-reservation {
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 65% 35%;
     margin-bottom: 24px;
 }
 
@@ -88,7 +90,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 10px;
+    padding: 20px;
 }
 
 .spot-details__reservation button {
@@ -97,7 +99,7 @@
     border-radius: 8px;
     cursor: pointer;
     color: white;
-    font-size: 20px;
+    font-size: 16px;
     padding: 14px 0;
 }
 

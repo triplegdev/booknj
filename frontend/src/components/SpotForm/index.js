@@ -16,7 +16,7 @@ const SpotForm = ({ spot, action, type }) => {
     const [ description, setDescription ] = useState(spot ? spot.description : "");
     const [ name, setName ] = useState(spot ? spot.name : "");
     const [ price, setPrice ] = useState(spot ? spot.price : "");
-    const [ preview, setPreview ] = useState("");
+    const [ preview, setPreview ] = useState(spot ? spot.previewImage : "");
     const [ image1, setImage1 ] = useState("");
     const [ image2, setImage2 ] = useState("");
     const [ image3, setImage3 ] = useState("");
@@ -100,6 +100,7 @@ const SpotForm = ({ spot, action, type }) => {
                     type="text"
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
+                    placeholder="Country"
                     required
                     />
                 </label>
@@ -113,6 +114,7 @@ const SpotForm = ({ spot, action, type }) => {
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Address"
                     required
                     />
                 </label>
@@ -128,6 +130,7 @@ const SpotForm = ({ spot, action, type }) => {
                             type="text"
                             value={city}
                             onChange={(e) => setCity(e.target.value)}
+                            placeholder="City"
                             required
                             />
                             <span>,</span>
@@ -143,6 +146,7 @@ const SpotForm = ({ spot, action, type }) => {
                             type="text"
                             value={state}
                             onChange={(e) => setState(e.target.value)}
+                            placeholder="STATE"
                             required
                             />
                         </div>
@@ -160,6 +164,7 @@ const SpotForm = ({ spot, action, type }) => {
                             type="text"
                             value={latitude}
                             onChange={(e) => setLatitude(e.target.value)}
+                            placeholder="Latitude"
                             required
                             />
                             <span>,</span>
@@ -176,6 +181,7 @@ const SpotForm = ({ spot, action, type }) => {
                             type="text"
                             value={longitude}
                             onChange={(e) => setLongitude(e.target.value)}
+                            placeholder="Longitude"
                             required
                             />
                         </div>
@@ -191,6 +197,7 @@ const SpotForm = ({ spot, action, type }) => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     rows="10"
+                    placeholder="Please write at least 30 characters"
                     required
                     />
                 </label>
@@ -203,6 +210,7 @@ const SpotForm = ({ spot, action, type }) => {
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    placeholder="Name of your spot"
                     required
                     />
                 </label>
@@ -217,6 +225,7 @@ const SpotForm = ({ spot, action, type }) => {
                         type="text"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        placeholder="Price per night (USD)"
                         required
                         />
                     </div>
@@ -263,7 +272,13 @@ const SpotForm = ({ spot, action, type }) => {
                     placeholder=" Image URL"
                 />
                 {errors.image4 && <div className="errors">{errors.image4}</div>}
-                <button className="form__button" type="submit">Create Spot</button>
+                <button className="form__button" type="submit">
+                    {
+                    (type === 'create' && 'Create Spot')
+                    ||
+                    (type === 'edit' && 'Update your Spot')
+                    }
+                </button>
             </form>
         </>
     );

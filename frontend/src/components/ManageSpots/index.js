@@ -22,7 +22,7 @@ const ManageSpots = () => {
     return (
         <div className="manage-spots">
             <h1>Manage Spots</h1>
-            <Link to="/spots/new"><button className="manage-spots__create-spot">Create a New Spot</button></Link>
+            {!Object.values(spots).length && <Link to="/spots/new"><button className="manage-spots__create-spot">Create a New Spot</button></Link>}
             <div className="spots-grid">
             {Object.values(spots).map(spot => {
                 return (
@@ -30,7 +30,7 @@ const ManageSpots = () => {
                         <Link to={`/spots/${spot.id}`}>
                             <div className="spot">
                                 <div className="spot__image-container">
-                                    <img className="spot__image" src="/images/blank.png" alt="" />
+                                    <img className="spot__image" src="/images/demo-house_dark.jpg" alt="" />
                                     <div className="spot__overlay">
                                         {spot.previewImage || "no image"}
                                     </div>

@@ -9,13 +9,18 @@
     text-align: left;
 }
 
-.manage-spots__create-spot {
+.manage-spots button {
     background-color: #717171;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
     color: white;
     cursor: pointer;
+}
+
+.manage-spots__create-spot {
     margin-top: 5px;
-    padding: 5px 10px;
-    text-decoration: none;
+    /* text-decoration: none; */
 }
 
 .manage-spots .spots-grid {

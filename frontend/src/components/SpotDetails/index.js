@@ -39,14 +39,15 @@ const SpotDetails = () => {
                         {`${spot.city}, ${spot.state}, ${spot.country}`}
                     </div>
                     <div className="spot-details__images">
-                        <div id="big-picture" style={{backgroundImage: "url(/images/blank.png)"}}>
+                        <div id="big-picture" style={{backgroundImage: "url(/images/demo-house_dark.jpg)"}}>
                             <div className="spot-details__overlay">
-                                {(preview && preview.url) || "no image"}
+                                {/* {(preview && preview.url) || "no image"} */}
+                                {preview && preview.url}
                             </div>
                         </div>
                         <div id="picture-group">
                             {images.map((image, i) => (
-                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: "url(/images/blank.png)"}}>
+                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: "url(/images/demo-house_dark.jpg)"}}>
                                     <div className="spot-details__overlay">
                                         {image.url || "no image"}
                                     </div>

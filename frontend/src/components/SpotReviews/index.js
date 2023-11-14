@@ -68,7 +68,9 @@ const SpotReviews = ({ spot }) => {
             </div>
             }
             <div className="reviews__list">
-                  {Object.values(reviews).map(review =>(
+                  {Object.values(reviews)
+                     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                     .map(review =>(
                      <ul key={review.id}>
                         <li><strong>{(user && review.userId === user.id) ? user.firstName : review.User.firstName}</strong></li>
                         <li id="review-date">{`${getDate(review.createdAt)}`}</li>

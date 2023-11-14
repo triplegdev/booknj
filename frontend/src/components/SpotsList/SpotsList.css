@@ -57,6 +57,7 @@
 
 .spot__overlay {
     bottom: 55%;
+    color: #ccc;
     left: 50%;
     font-size: 12px;
     position: absolute;
