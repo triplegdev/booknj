@@ -6,7 +6,7 @@ const GET_SPOT_REVIEWS = 'spots/GET_SPOTS_REVIEWS';
 // const POST_SPOT = 'spots/POST_SPOT';
 // const POST_IMAGE = 'spots/POST_IMAGE';
 const POST_SPOT_REVIEW = 'spots/POST_SPOT_REVIEW';
-const DELETE_SPOT_REVIEW = 'spots/DELETE_SPOT_REVIEW';
+// const DELETE_SPOT_REVIEW = 'spots/DELETE_SPOT_REVIEW';
 
 export const listSpots = (spots) => ({
     type: GET_SPOTS,
