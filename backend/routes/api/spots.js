@@ -363,7 +363,10 @@ router.get('/current', requireAuth, async (req, res, next) => {
             {
                 model: Image,
                 attributes: [],
-                as: 'SpotImages'
+                as: 'SpotImages',
+                where: {
+                    preview: true
+                }
             }
         ],
         attributes: [
@@ -381,7 +384,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             'createdAt',
             'updatedAt',
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
-            [literal('(SELECT "url" FROM "Images" AS "SpotImages" WHERE "SpotImages"."imageableId" = "Spot"."id" AND "SpotImages"."preview" = true LIMIT 1)'), 'previewImage']
+            [literal('(SpotImages.url)'), 'previewImage']
         ],
         group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
 
@@ -616,7 +619,10 @@ router.get('/', queryValidators, async (req, res) => {
             {
                 model: Image,
                 attributes: [],
-                as: 'SpotImages'
+                as: 'SpotImages',
+                where: {
+                    preview: true
+                }
             }
         ],
         attributes: [
@@ -634,7 +640,7 @@ router.get('/', queryValidators, async (req, res) => {
             'createdAt',
             'updatedAt',
             [cast(fn('AVG', col('Reviews.stars')), 'FLOAT'), 'avgRating'],
-            [literal('(SELECT "url" FROM "Images" AS "SpotImages" WHERE "SpotImages"."imageableId" = "Spot"."id" AND "SpotImages"."preview" = true LIMIT 1)'), 'previewImage']
+            [literal('(SpotImages.url)'), 'previewImage']
         ],
         group: ['Spot.id', 'SpotImages.preview', 'SpotImages.url'],
         order: [['id']],
