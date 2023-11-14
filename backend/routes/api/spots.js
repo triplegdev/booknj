@@ -363,10 +363,7 @@ router.get('/current', requireAuth, async (req, res, next) => {
             {
                 model: Image,
                 attributes: [],
-                as: 'SpotImages',
-                where: {
-                    preview: true
-                }
+                as: 'SpotImages'
             }
         ],
         attributes: [
@@ -619,10 +616,7 @@ router.get('/', queryValidators, async (req, res) => {
             {
                 model: Image,
                 attributes: [],
-                as: 'SpotImages',
-                where: {
-                    preview: true
-                }
+                as: 'SpotImages'
             }
         ],
         attributes: [
