@@ -7,6 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import ReviewStar from '../ReviewStar';
 import formatAvgRating from "../../util/formatAvgRating";
 import DeleteSpotModal from './DeleteSpotModal';
+import LoadingFlash from '../LoadingFlash';
 import checkImages from '../../util/checkImages';
 import './ManageSpots.css';
 
@@ -15,6 +16,7 @@ const ManageSpots = () => {
     const spots = useSelector(state => state.userSpots);
     const session = useSelector(state => state.session.user);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
     const [invalidUrls, setInvalidUrls] = useState([]);
 
     useEffect(() => {
@@ -24,21 +26,23 @@ const ManageSpots = () => {
     },[dispatch]);
 
     useEffect(() => {
-        checkImages(Object.values(spots)).then(invalidUrls => {
-            setInvalidUrls(invalidUrls);
-        });
-    }, [spots]);
+        if (isLoaded) {
+            checkImages(Object.values(spots)).then(invalidUrls => {
+                setInvalidUrls(invalidUrls);
+                setImagesLoaded(true);
+            });
+        }
+    }, [isLoaded, spots]);
 
     if (!session) return <Redirect to="/" />;
 
     return (
-        <>
-        {isLoaded &&
-            <div className="manage-spots">
-                <h1>Manage Spots</h1>
-                {!Object.values(spots).length && <Link to="/spots/new"><button className="manage-spots__create-spot">Create a New Spot</button></Link>}
+        <div className="manage-spots">
+            <h1>Manage Spots</h1>
+            {isLoaded && !Object.values(spots).length && <Link to="/spots/new"><button className="manage-spots__create-spot">Create a New Spot</button></Link>}
                 <div className="spots-grid">
-                    {Object.values(spots).map(spot => {
+                    {isLoaded && imagesLoaded ?
+                    Object.values(spots).map(spot => {
                         const imgInvalid = invalidUrls.includes(spot.previewImage);
                         return (
                             <div key={spot.id}>
@@ -68,11 +72,14 @@ const ManageSpots = () => {
                                 </div>
                             </div>
                         )
-                    })}
+                    })
+                    :
+                    new Array(8).fill(null).map((slot, i) => (
+                        <LoadingFlash key={i}/>
+                    ))
+                    }
                 </div>
-            </div>
-        }
-        </>
+        </div>
     )
 };
 
