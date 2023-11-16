@@ -63,14 +63,13 @@
     margin-bottom: 24px;
 }
 
+.spot-details__details {
+    padding-right: 24px;
+}
+
 .spot-details__details h2 {
     margin-top: 0;
 }
-
-/* .spot-details__image {
-    border-radius: 20px;
-    width: 100%;
-} */
 
 .spot-details__overlay {
     bottom: 50%;
