@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails } from "../../store/spots";
 import SpotReserve from "./SpotReserve";
 import SpotReviews from "../SpotReviews";
+import checkImages from "../../util/checkImages";
 import './SpotDetails.css';
 
 const SpotDetails = () => {
@@ -11,12 +12,19 @@ const SpotDetails = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
     const [isLoaded, setIsLoaded] = useState(false);
+    const [invalidUrls, setInvalidUrls] = useState([]);
 
     useEffect(() => {
         dispatch(getSpotDetails(id)).then(() => {
             setIsLoaded(true);
         });
     }, [dispatch, id]);
+
+    useEffect(() => {
+        isLoaded && checkImages(Object.values(spot.SpotImages)).then(invalidUrls => {
+            setInvalidUrls(invalidUrls);
+        });
+    }, [spot, isLoaded]);
 
     if (isLoaded && !spot) return <Redirect to="/" />;
 
@@ -39,20 +47,26 @@ const SpotDetails = () => {
                         {`${spot.city}, ${spot.state}, ${spot.country}`}
                     </div>
                     <div className="spot-details__images">
-                        <div id="big-picture" style={{backgroundImage: "url(/images/demo-house_dark.jpg)"}}>
+                        <div id="big-picture" style={{backgroundImage: `url(${invalidUrls.includes(preview.url) ? '/images/demo-house_dark.jpg' : preview.url})`}}>
+                        {invalidUrls.includes(preview.url) &&
                             <div className="spot-details__overlay">
-                                {/* {(preview && preview.url) || "no image"} */}
                                 {preview && preview.url}
                             </div>
+                        }
                         </div>
                         <div id="picture-group">
-                            {images.map((image, i) => (
-                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: "url(/images/demo-house_dark.jpg)"}}>
-                                    <div className="spot-details__overlay">
-                                        {image.url || "no image"}
-                                    </div>
+                            {images.map((image, i) => {
+                                const imgInvalid = invalidUrls.includes(image.url);
+                                return (
+                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: `url(${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url})`}}>
+                                    {imgInvalid &&
+                                        <div className="spot-details__overlay">
+                                            {image.url}
+                                        </div>
+                                    }
                                 </div>
-                            ))}
+                                )
+                            })}
                         </div>
                     </div>
                     <div className="spot-details__details-reservation">

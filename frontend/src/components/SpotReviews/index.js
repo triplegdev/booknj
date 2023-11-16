@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import ReviewStar from "../ReviewStar";
-import formatAvgRating from "../../util/util";
+import formatAvgRating from "../../util/formatAvgRating";
 import { getSpotReviews } from "../../store/spots";
 import CreateReviewModal from "../CreateReviewModal";
 import OpenModalButton from "../OpenModalButton";

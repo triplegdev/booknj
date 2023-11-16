@@ -48,15 +48,22 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 5px;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%;
+
 }
 
 .spot__image {
     border-radius: 20px;
+    position: absolute;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .spot__overlay {
-    bottom: 55%;
+    bottom: 50%;
     color: #ccc;
     left: 50%;
     font-size: 12px;

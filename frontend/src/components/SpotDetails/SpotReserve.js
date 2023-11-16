@@ -1,5 +1,5 @@
 import ReviewStar from "../ReviewStar";
-import formatAvgRating from "../../util/util";
+import formatAvgRating from "../../util/formatAvgRating";
 
 const SpotReserve = ({ spot }) => {
     return (

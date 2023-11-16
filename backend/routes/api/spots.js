@@ -44,7 +44,8 @@ const validateSpot = [
         .exists({ checkFalsy: true })
         .withMessage('Preview image is required')
         .custom((value) => {
-            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+            const val = value.toLowerCase();
+            if (!val.endsWith('.png') && !val.endsWith('.jpg') && !val.endsWith('.jpeg')) {
                 throw new Error('Preview image must end in png, jpg or jpeg');
             }
             return true;
@@ -53,7 +54,8 @@ const validateSpot = [
         .notEmpty()
         .optional({ checkFalsy: true })
         .custom((value) => {
-            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+            const val = value.toLowerCase();
+            if (!val.endsWith('.png') && !val.endsWith('.jpg') && !val.endsWith('.jpeg')) {
                 throw new Error('Image must end in png, jpg or jpeg');
             }
             return true;
@@ -62,7 +64,8 @@ const validateSpot = [
         .notEmpty()
         .optional({ checkFalsy: true })
         .custom((value) => {
-            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+            const val = value.toLowerCase();
+            if (!val.endsWith('.png') && !val.endsWith('.jpg') && !val.endsWith('.jpeg')) {
                 throw new Error('Image must end in png, jpg or jpeg');
             }
             return true;
@@ -71,7 +74,8 @@ const validateSpot = [
         .notEmpty()
         .optional({ checkFalsy: true })
         .custom((value) => {
-            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+            const val = value.toLowerCase();
+            if (!val.endsWith('.png') && !val.endsWith('.jpg') && !val.endsWith('.jpeg')) {
                 throw new Error('Image must end in png, jpg or jpeg');
             }
             return true;
@@ -80,7 +84,8 @@ const validateSpot = [
         .notEmpty()
         .optional({ checkFalsy: true })
         .custom((value) => {
-            if (!value.endsWith('.png') && !value.endsWith('.jpg') && !value.endsWith('.jpeg')) {
+            const val = value.toLowerCase();
+            if (!val.endsWith('.png') && !val.endsWith('.jpg') && !val.endsWith('.jpeg')) {
                 throw new Error('Image must end in png, jpg or jpeg');
             }
             return true;
