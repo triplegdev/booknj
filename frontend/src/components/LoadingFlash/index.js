@@ -1,8 +1,8 @@
 import './LoadingFlash.css';
 
-const LoadingPlaceholder = () => {
+const LoadingPlaceholder = ({ styles }) => {
     return (
-      <div className="loading-placeholder" />
+      <div className="loading-placeholder" style={styles}/>
     );
   };
 

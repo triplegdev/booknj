@@ -4,9 +4,9 @@
     padding: 0 80px;
 }
 
-.spot-details {
+/* .spot-details {
     border-bottom: 1px solid black;
-}
+} */
 
 .spot-details h1 {
     text-align: left;
@@ -58,9 +58,10 @@
 }
 
 .spot-details__details-reservation {
+    border-bottom: 1px solid black;
     display: grid;
     grid-template-columns: 65% 35%;
-    margin-bottom: 24px;
+    padding-bottom: 24px;
 }
 
 .spot-details__details {

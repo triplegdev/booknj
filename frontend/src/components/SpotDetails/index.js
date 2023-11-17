@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpotDetails } from "../../store/spots";
 import SpotReserve from "./SpotReserve";
 import SpotReviews from "../SpotReviews";
+// import LoadingFlash from "../LoadingFlash";
 import checkImages from "../../util/checkImages";
 import './SpotDetails.css';
 
@@ -12,6 +13,7 @@ const SpotDetails = () => {
     const { id } = useParams();
     const spot = useSelector(state => state.spots[id]);
     const [isLoaded, setIsLoaded] = useState(false);
+    // const [imagesLoaded, setImagesLoaded] = useState(false);
     const [invalidUrls, setInvalidUrls] = useState([]);
 
     useEffect(() => {
@@ -21,9 +23,11 @@ const SpotDetails = () => {
     }, [dispatch, id]);
 
     useEffect(() => {
-        isLoaded && checkImages(Object.values(spot.SpotImages)).then(invalidUrls => {
-            setInvalidUrls(invalidUrls);
-        });
+        if (isLoaded) {
+            checkImages(Object.values(spot.SpotImages)).then(invalidUrls => {
+                setInvalidUrls(invalidUrls);
+            });
+        }
     }, [spot, isLoaded]);
 
     if (isLoaded && !spot) return <Redirect to="/" />;
