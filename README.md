@@ -69,21 +69,21 @@ This project is a clone of Airbnb, currently focused on spots and reviews. The p
 ## Tech Stack
 
 Backend technologies:
-- Sequelize <img src="https://camo.githubusercontent.com/a2ef2bb116ae565bb254cbb11194dae357eb7582a8babeab337bd3932687d63d/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f73657175656c697a652f73657175656c697a652d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- Express <img src="https://camo.githubusercontent.com/40756575fc2fd74b1883ea0cc5c2a49aa7048ab58286f43a121109d69a9ea160/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f657870726573732f657870726573732d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- PostgreSQL <img src="https://camo.githubusercontent.com/d536b9cc0c533324368535ece721f5424f28eae3ec0e6f3847408948ecacfce6/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f706f737467726573716c2f706f737467726573716c2d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- Node.js <img src="https://camo.githubusercontent.com/900baefb89e187c8b32cdbb3b440d1502fe8f30a1a335cc5dc5868af0142f8b1/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f6e6f64656a732f6e6f64656a732d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
+- Sequelize <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/sequelize-colored.svg" width="20px" style="vertical-align: middle">
+- Express <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/express-colored.svg" width="20px" style="vertical-align: middle">
+- PostgreSQL <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/postgresql-colored.svg" width="20px" style="vertical-align: middle">
+- Node.js <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/nodejs-colored.svg" width="20px" style="vertical-align: middle">
 
 Frontend technologies:
-- React <img src="https://camo.githubusercontent.com/27d0b117da00485c56d69aef0fa310a3f8a07abecc8aa15fa38c8b78526c60ac/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f72656163742f72656163742d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- Redux <img src="https://camo.githubusercontent.com/2b6b50702c658cdfcf440cef1eb88c7e0e5a16ce0eb6ab8bc933da7697c12213/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f72656475782f72656475782d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- HTML5 <img src="https://camo.githubusercontent.com/da7acacadecf91d6dc02efcd2be086bb6d78ddff19a1b7a0ab2755a6fda8b1e9/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f68746d6c352f68746d6c352d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- CSS3 <img src="https://camo.githubusercontent.com/2e496d4bfc6f753ddca87b521ce95c88219f77800212ffa6d4401ad368c82170/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f637373332f637373332d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
+- React <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/react-colored.svg" width="20px" style="vertical-align: middle">
+- Redux <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/redux-colored.svg" width="20px" style="vertical-align: middle">
+- HTML5 <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/html5-colored.svg" width="20px" style="vertical-align: middle">
+- CSS3 <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/css3-colored.svg" width="20px" style="vertical-align: middle">
 
 Other technologies:
-- Git <img src="https://camo.githubusercontent.com/dc9e7e657b4cd5ba7d819d1a9ce61434bd0ddbb94287d7476b186bd783b62279/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f6769742f6769742d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
-- VisualStudioCode <img src="https://camo.githubusercontent.com/39ddd51193b851f304bd6c335bc25a837ec7cafbbc4876fa78b994f5e95094ac/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f76697375616c73747564696f2f76697375616c73747564696f2d706c61696e2e737667" width="20px" style="vertical-align: middle">
-- JavaScript <img src="https://camo.githubusercontent.com/442c452cb73752bb1914ce03fce2017056d651a2099696b8594ddf5ccc74825e/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f64657669636f6e732f64657669636f6e2f69636f6e732f6a6176617363726970742f6a6176617363726970742d6f726967696e616c2e737667" width="20px" style="vertical-align: middle">
+- Git <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/git-colored.svg" width="20px" style="vertical-align: middle">
+- VisualStudioCode <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/vscode-colored.svg" width="20px" style="vertical-align: middle">
+- JavaScript <img src="https://raw.githubusercontent.com/triplegdev/readme-generator/main/public/icons/skills/javascript-colored.svg" width="20px" style="vertical-align: middle">
 
 ## Project Links
 
