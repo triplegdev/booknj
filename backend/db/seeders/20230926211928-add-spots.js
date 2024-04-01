@@ -81,28 +81,28 @@ const spotsData = [
     price: 110
   },
   {
-    "ownerId": 1,
-    "address": "123 Maple Avenue",
-    "city": "Montclair",
-    "state": "New Jersey",
-    "country": "United States of America",
-    "lat": 40.8179,
-    "lng": -74.2107,
-    "name": "Montclair Serenity Haven",
-    "description": "Experience tranquility in the heart of Montclair.",
-    "price": 120
+    ownerId: 1,
+    address: "123 Maple Avenue",
+    city: "Montclair",
+    state: "New Jersey",
+    country: "United States of America",
+    lat: 40.8179,
+    lng: -74.2107,
+    name: "Montclair Serenity Haven",
+    description: "Experience tranquility in the heart of Montclair.",
+    price: 120
   },
   {
-    "ownerId": 2,
-    "address": "456 Oceanfront Boulevard",
-    "city": "Cape May",
-    "state": "New Jersey",
-    "country": "United States of America",
-    "lat": 38.9351,
-    "lng": -74.9060,
-    "name": "Oceanfront Oasis in Cape May",
-    "description": "Indulge in seaside luxury at our Cape May retreat.",
-    "price": 150
+    ownerId: 2,
+    address: "456 Oceanfront Boulevard",
+    city: "Cape May",
+    state: "New Jersey",
+    country: "United States of America",
+    lat: 38.9351,
+    lng: -74.9060,
+    name: "Oceanfront Oasis in Cape May",
+    description: "Indulge in seaside luxury at our Cape May retreat.",
+    price: 150
   }
 ];
 
