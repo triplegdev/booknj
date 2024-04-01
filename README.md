@@ -101,10 +101,6 @@ Booking System:
 - Allow users to book spots for specific dates and times.
 - Implement a reservation system with booking confirmation.
 
-Image Upload and Replacement:
-
-- Replace current image url input with the ability to upload images to showcase spots.
-
 ## Technical Implementation Details
 
 - The number of action types and reducers are minimized.
