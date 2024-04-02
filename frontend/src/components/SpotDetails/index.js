@@ -62,7 +62,7 @@ const SpotDetails = () => {
                                     const imgInvalid = invalidUrls.includes(image.url);
                                     return (
                                     <div key={i} id={imageIds[i]} className="picture-full">
-                                        <img src={`${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url})`} alt=""/>
+                                        <img src={`${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url}`} alt=""/>
                                         {imgInvalid &&
                                             <div className="spot-details__overlay">
                                                 {image.url}
