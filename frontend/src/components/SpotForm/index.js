@@ -1,11 +1,15 @@
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postImages } from '../../store/spots';
+import { postImages, updateImages } from '../../store/spots';
 
 const SpotForm = ({ spot, action, type }) => {
     const dispatch = useDispatch();
     const history = useHistory();
+    const spotImages = spot ? Object.values(spot.SpotImages) : null;
+    console.log('initial spot', spot)
+    //spot data on edit form on refresh will not contain previewImage property so must grab from SpotImages array if backend route is not changed
+    const previewImage = spot && spot.previewImage ? spot.previewImage : spot ? spotImages[0].url : null;
 
     const [ country, setCountry ] = useState(spot ? spot.country : "");
     const [ address, setAddress ] = useState(spot ? spot.address : "");
@@ -16,11 +20,11 @@ const SpotForm = ({ spot, action, type }) => {
     const [ description, setDescription ] = useState(spot ? spot.description : "");
     const [ name, setName ] = useState(spot ? spot.name : "");
     const [ price, setPrice ] = useState(spot ? spot.price : "");
-    const [ preview, setPreview ] = useState(spot ? spot.previewImage : "");
-    const [ image1, setImage1 ] = useState("");
-    const [ image2, setImage2 ] = useState("");
-    const [ image3, setImage3 ] = useState("");
-    const [ image4, setImage4 ] = useState("");
+    const [ preview, setPreview ] = useState(spot ? previewImage : "");
+    const [ image1, setImage1 ] = useState(spot ? spotImages[1].url : "");
+    const [ image2, setImage2 ] = useState(spot ? spotImages[2].url : "");
+    const [ image3, setImage3 ] = useState(spot ? spotImages[3].url : "");
+    const [ image4, setImage4 ] = useState(spot ? spotImages[4].url : "");
     const [ errors, setErrors ] = useState({});
 
     const handleSubmit = async (e) => {
@@ -56,12 +60,20 @@ const SpotForm = ({ spot, action, type }) => {
         // let spot;
         let imgArr;
 
+        //create or edit spot details
         const spotResult = await dispatch(!spot ? action(payload) : action(payload, spot.id));
         if (type === "create" && spotResult.id) {
             imgArr = await dispatch(postImages(images, spotResult.id));
         }
 
-        if (spotResult.id && (type === "edit" || imgArr.length)) {
+        if (type === "edit" && spotResult.id) {
+            console.log(spot)
+            //image ids to edit
+            const imageIds = spotImages.map(img => img.id);
+            imgArr = await dispatch(updateImages(images, imageIds));
+        }
+
+        if (spotResult.id && imgArr.length) {
             // console.log('success');
             history.push(`/spots/${spotResult.id}`);
         }
