@@ -17,19 +17,26 @@
     .spots-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-  }
+}
 
-  @media (max-width: 1050px) {
+@media (max-width: 1050px) {
     .spots-grid {
         grid-template-columns: repeat(2, minmax(280px, 350px));
-      }
-  }
-
-  @media (max-width: 740px) {
-    .spots-grid {
-      grid-template-columns: repeat(1, minmax(280px, 400px));
     }
-  }
+}
+
+@media (max-width: 740px) {
+    .spots-grid {
+        grid-template-columns: repeat(1, minmax(280px, 400px));
+    }
+}
+
+@media (max-width: 315px) {
+    .spots-grid {
+        grid-template-columns: repeat(1, minmax(200px, 400px));
+        padding: 0 20px;
+    }
+}
 
 .spots-grid a {
     color: unset;

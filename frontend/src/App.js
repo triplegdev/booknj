@@ -9,7 +9,7 @@ import CreateSpot from './components/CreateSpot';
 import ManageSpots from './components/ManageSpots';
 import EditSpot from './components/ManageSpots/EditSpot';
 
-const App = ({ children }) => {
+const App = () => {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -22,16 +22,17 @@ const App = ({ children }) => {
   return (
     <>
     <Navigation isLoaded={isLoaded}/>
-    <main style={{marginTop: "105px"}}>{children}</main>
-    {isLoaded &&
-    <Switch>
-      <Route exact path="/" component={SpotsList} />
-      <Route path="/spots/new" component={CreateSpot} />
-      <Route path="/spots/current" component={ManageSpots} />
-      <Route path="/spots/:id/edit" component={EditSpot} />
-      <Route path="/spots/:id" component={SpotDetails} />
-    </Switch>
-    }
+    <main style={{marginTop: "105px"}}>
+      {isLoaded &&
+      <Switch>
+        <Route exact path="/" component={SpotsList} />
+        <Route path="/spots/new" component={CreateSpot} />
+        <Route path="/spots/current" component={ManageSpots} />
+        <Route path="/spots/:id/edit" component={EditSpot} />
+        <Route path="/spots/:id" component={SpotDetails} />
+      </Switch>
+      }
+    </main>
     </>
   );
 }

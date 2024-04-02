@@ -5,6 +5,7 @@ import { getSpotDetails } from "../../store/spots";
 import SpotReserve from "./SpotReserve";
 import SpotReviews from "../SpotReviews";
 import checkImages from "../../util/checkImages";
+import Slider from 'react-slick';
 import './SpotDetails.css';
 
 const SpotDetails = () => {
@@ -36,6 +37,14 @@ const SpotDetails = () => {
 
     const imageIds = ['top-left', 'top-right', 'bottom-left', 'bottom-right'];
 
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+
 
     return (
        <>
@@ -46,29 +55,49 @@ const SpotDetails = () => {
                         <h1>{spot.name}</h1>
                         {`${spot.city}, ${spot.state}, ${spot.country}`}
                     </div>
-                    <div className="spot-details__images">
-                        <div id="big-picture" style={{backgroundImage: `url(${invalidUrls.includes(preview.url) ? '/images/demo-house_dark.jpg' : preview.url})`}}>
-                        {invalidUrls.includes(preview.url) &&
-                            <div className="spot-details__overlay">
-                                {preview && preview.url}
-                            </div>
-                        }
+                    <div className="spot-details__images-container">
+                        <div className="spot-details__images-slideshow">
+                            <Slider {...settings}>
+                                {spotImages.map((image, i) => {
+                                    const imgInvalid = invalidUrls.includes(image.url);
+                                    return (
+                                    <div key={i} id={imageIds[i]} className="picture-full">
+                                        <img src={`${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url})`} alt=""/>
+                                        {imgInvalid &&
+                                            <div className="spot-details__overlay">
+                                                {image.url}
+                                            </div>
+                                        }
+                                    </div>
+                                    )
+                                })}
+                            </Slider>
                         </div>
-                        <div id="picture-group">
-                            {images.map((image, i) => {
-                                const imgInvalid = invalidUrls.includes(image.url);
-                                return (
-                                <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: `url(${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url})`}}>
-                                    {imgInvalid &&
-                                        <div className="spot-details__overlay">
-                                            {image.url}
-                                        </div>
-                                    }
+                        <div className="spot-details__images">
+                            <div id="big-picture" style={{backgroundImage: `url(${invalidUrls.includes(preview.url) ? '/images/demo-house_dark.jpg' : preview.url})`}}>
+                            {invalidUrls.includes(preview.url) &&
+                                <div className="spot-details__overlay">
+                                    {preview && preview.url}
                                 </div>
-                                )
-                            })}
+                            }
+                            </div>
+                            <div id="picture-group">
+                                {images.map((image, i) => {
+                                    const imgInvalid = invalidUrls.includes(image.url);
+                                    return (
+                                    <div key={i} id={imageIds[i]} className="picture-single" style={{backgroundImage: `url(${invalidUrls.includes(image.url) ? '/images/demo-house_dark.jpg' : image.url})`}}>
+                                        {imgInvalid &&
+                                            <div className="spot-details__overlay">
+                                                {image.url}
+                                            </div>
+                                        }
+                                    </div>
+                                    )
+                                })}
+                            </div>
                         </div>
                     </div>
+
                     <div className="spot-details__details-reservation">
                         <div className="spot-details__details">
                             <h2>{`Hosted by ${spot.Owner.firstName} ${spot.Owner.lastName}`}</h2>
