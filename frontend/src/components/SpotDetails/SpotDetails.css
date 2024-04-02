@@ -12,6 +12,15 @@
     text-align: left;
 }
 
+.spot-details__images-container {
+    box-sizing: border-box;
+    position: relative;
+}
+
+.spot-details__images-slideshow {
+    display: none;
+}
+
 .spot-details__images {
     box-sizing: border-box;
     display: grid;
@@ -129,4 +138,106 @@
 
 .reservation__reviews {
     color: #717171;
+}
+
+@media (max-width: 960px) {
+    .spot-details__images-container  {
+        padding-bottom: 50%;
+    }
+    .spot-details__images {
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+    .spot-details__details-reservation {
+        margin-top: 48px;
+    }
+}
+
+@media (max-width: 930px) {
+    .spot-details__details-reviews {
+        padding: 0 60px;
+    }
+    .reservation__price-rating-review {
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 14px;
+    }
+    .reservation__rating-review {
+        order: -1;
+    }
+}
+
+@media (max-width: 750px) {
+    .spot-details__images-container  {
+        padding-bottom: unset;
+    }
+    .spot-details__images {
+        height: unset;
+        position: unset;
+        left: unset;
+        top: unset;
+    }
+
+    .spot-details__images-slideshow {
+        display: inline-block;
+        height: 375px;
+        width: calc(100% + 120px);
+        margin: 24px -60px;
+    }
+    .spot-details__images {
+        display: none;
+    }
+    .picture-full img {
+        width: 100%;
+        height: 375px;
+        object-fit: cover;
+    }
+
+    .spot-details__details-reservation {
+        margin-top: 24px;
+    }
+}
+
+@media (max-width: 700px) {
+    .spot-details__details-reservation {
+        display: block;
+    }
+    .reservation__price-rating-review {
+        flex-direction: row;
+        gap: unset;
+        margin-bottom: 24px;
+    }
+}
+
+@media (max-width: 533px) {
+    .spot-details__details-reviews {
+        padding: 0 40px;
+    }
+    .spot-details__images-slideshow {
+        width: calc(100% + 80px);
+        margin: 24px -40px;
+    }
+}
+
+@media (max-width: 375px) {
+    .spot-details__details-reviews {
+        padding: 0 20px;
+    }
+    .spot-details__images-slideshow {
+        width: calc(100% + 40px);
+        margin: 24px -20px;
+    }
+}
+
+@media (max-width: 315px) {
+    .reservation__price-rating-review {
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 14px;
+    }
+    .reservation__rating-review {
+        order: -1;
+    }
 }
