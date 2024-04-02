@@ -137,6 +137,33 @@ export const postImages = (images, spotId) => async dispatch => {
 
 };
 
+export const updateImages = (images, imageIds) => async dispatch => {
+    const imgArr = [];
+    for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+        if (image.url) {
+            const options = {
+                method: 'PUT',
+                body: JSON.stringify(image)
+            }
+            const url = `/api/spot-images/${imageIds[i]}`;
+            try {
+                const res = await csrfFetch(url, options);
+                const image = await res.json();
+                imgArr.push(image);
+                // console.log(image);
+                // dispatch(uploadImage(image));
+                // return image;
+            } catch (err) {
+                return err;
+            }
+        }
+    }
+
+    return imgArr;
+
+};
+
 export const postReview = (review, spotId) => async dispatch => {
     const options = {
         method: 'POST',
