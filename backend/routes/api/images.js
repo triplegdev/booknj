@@ -5,6 +5,43 @@ const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
+router.put('/spot-images/:imageId', requireAuth, async (req, res, next) => {
+    const { user } = req;
+    const { url, preview } = req.body;
+    const { imageId } = req.params;
+
+    const image = await Image.findByPk(imageId);
+
+    if (!image) {
+        const err = new Error("Image couldn't be found");
+        err.status = 404;
+        return next(err);
+        //res.status(404)
+        // return res.json({ message: "Spot couldn't be found" });
+    }
+
+    const spotId = image.imageableId;
+    const spot = await Spot.findByPk(spotId);
+
+    if (spot.ownerId !== user.id) {
+        const err = new Error("Forbidden");
+        err.status = 403;
+        return next(err);
+        // res.status(403);
+        // return res.json({ message: "Forbidden" });
+    }
+
+    // const image = await Image.create({ imageableId, imageableType, url, preview });
+    const updates = {
+        url,
+        preview
+    }
+
+    await image.update(updates);
+
+    return res.json( image );
+});
+
 router.delete('/spot-images/:imageId', requireAuth, async (req, res, next) => {
     const { user } = req;
     const { imageId } = req.params;
