@@ -101,6 +101,9 @@ Booking System:
 - Allow users to book spots for specific dates and times.
 - Implement a reservation system with booking confirmation.
 
+Images:
+- Upload images directly into the edit form, eliminating the need for manual input of image links.
+
 ## Technical Implementation Details
 
 - The number of action types and reducers are minimized.
